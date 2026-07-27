@@ -3,37 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrustLend - Login</title>
+  <title>TrustLend - Sign Up</title>
+
+  <!-- Google Font — replace "Inter" if your Figma Design System specifies a different family -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
           colors: {
             brandDark: '#0B1E3F',
             brandOrange: '#F59E0B',
             bgLight: '#F8FAFC',
-          }
-        }
-      }
+          },
+        },
+      },
     }
   </script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
   <!-- Card Container -->
-  <div class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+  <div class="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[700px]">
     
     <!-- Left Banner / Image Section -->
-    <div class="w-full md:w-5/12 relative bg-gray-900 text-white flex flex-col justify-between p-6 bg-cover bg-center" 
-         style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80');">
-      
+    <div class="w-full md:w-5/12 relative bg-gray-900 text-white flex flex-col justify-between p-6">
+      <!-- Background image with overlay -->
+      <img 
+        src="images/sign-up(background).png" 
+        alt="Canon DSLR camera on dark background" 
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-black/50" aria-hidden="true"></div>
+
       <!-- Brand Logo -->
-      <div class="flex items-center space-x-2 z-10">
-        <div class="w-8 h-8 rounded-full border-2 border-brandOrange flex items-center justify-center bg-brandDark">
+      <div class="relative z-10 flex items-center space-x-2">
+        <div class="w-9 h-9 rounded-full border-2 border-brandOrange flex items-center justify-center bg-brandDark">
           <i class="fa-solid fa-key text-brandOrange text-xs"></i>
         </div>
         <span class="text-xl font-bold tracking-tight">
@@ -41,149 +58,202 @@
         </span>
       </div>
 
-      <!-- Bottom Overlay Image / Decorative Box -->
-      <div class="z-10 mt-auto pt-12">
-        <div class="rounded-lg overflow-hidden border border-white/20 shadow-lg">
-        </div>
-      </div>
+      <!-- Spacer so logo stays top, nothing at bottom -->
+      <div class="relative z-10"></div>
     </div>
 
     <!-- Right Form Section -->
-    <div class="w-full md:w-7/12 bg-bgLight p-8 sm:p-12 flex flex-col justify-center">
+    <div class="w-full md:w-7/12 bg-white p-8 sm:p-12 flex flex-col justify-center">
       
-      <!-- Dynamic Title -->
+      <!-- Heading -->
       <div class="text-center mb-6">
-        <h2 class="text-2xl sm:text-3xl font-bold text-brandDark">
-          Login as <span id="role-title-text" class="text-brandOrange">a Renter</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">
+          Sign up as a <span id="role-title-text" class="text-brandOrange">Renter</span>
         </h2>
         
-        <!-- Toggle Switch -->
+        <!-- Role Toggle -->
         <div class="inline-flex bg-gray-200 p-1 rounded-full mt-4 w-full max-w-xs">
-          <button id="btn-renter" onclick="setRole('renter')" 
-                  class="w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 bg-brandDark text-white shadow-md">
+          <button 
+            id="btn-renter" 
+            onclick="setRole('renter')" 
+            class="w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 bg-brandDark text-white shadow-md"
+          >
             I'm a Renter
           </button>
-          <button id="btn-owner" onclick="setRole('owner')" 
-                  class="w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 text-gray-600 hover:text-brandDark">
+          <button 
+            id="btn-owner" 
+            onclick="setRole('owner')" 
+            class="w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 text-gray-600 hover:text-brandDark"
+          >
             I'm an Owner
           </button>
         </div>
 
-        <!-- Subtitle Description -->
-        <p id="role-description" class="text-xs text-gray-500 mt-3">
-          Logging in as a <span class="font-semibold text-gray-700">renter</span> – browse and book equipments
+        <!-- Subtitle -->
+        <p id="role-description" class="text-sm text-gray-500 mt-3">
+          Find trusted equipment nearby and book with confidence.
         </p>
       </div>
 
-      <!-- Login Form -->
-      <form onsubmit="handleLogin(event)" class="space-y-4 max-w-sm mx-auto w-full">
+      <!-- Sign Up Form -->
+      <form onsubmit="handleSignup(event)" class="space-y-4 max-w-sm mx-auto w-full">
         
-        <!-- Email Input -->
+        <!-- Full Name -->
         <div>
-          <input type="email" required placeholder="Email address" 
-                 class="w-full px-4 py-3 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brandDark transition">
+          <input 
+            type="text" 
+            id="fullname" 
+            required 
+            placeholder="Full Name" 
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brandDark transition"
+          />
         </div>
 
-        <!-- Password Input -->
+        <!-- Email -->
+        <div>
+          <input 
+            type="email" 
+            id="email" 
+            required 
+            placeholder="Email address" 
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brandDark transition"
+          />
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <input 
+            type="tel" 
+            id="phone" 
+            required 
+            placeholder="Phone number" 
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brandDark transition"
+          />
+        </div>
+
+        <!-- Password -->
         <div class="relative">
-          <input type="password" id="password" required placeholder="Password" 
-                 class="w-full px-4 py-3 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brandDark transition pr-10">
-          <button type="button" onclick="togglePassword()" 
-                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
-            <i id="password-toggle-icon" class="fa-regular fa-eye text-sm"></i>
+          <input 
+            type="password" 
+            id="password" 
+            required 
+            placeholder="Password" 
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brandDark transition pr-10"
+          />
+          <button 
+            type="button" 
+            onclick="togglePassword('password', 'password-icon')" 
+            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+          >
+            <i id="password-icon" class="fa-regular fa-eye text-sm"></i>
           </button>
         </div>
 
-        <!-- Forgot Password -->
-        <div class="text-left">
-          <a href="#" class="text-xs font-semibold text-brandOrange hover:underline">Forgot password?</a>
+        <!-- Confirm Password -->
+        <div class="relative">
+          <input 
+            type="password" 
+            id="confirm-password" 
+            required 
+            placeholder="Confirm password" 
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brandDark transition pr-10"
+          />
+          <button 
+            type="button" 
+            onclick="togglePassword('confirm-password', 'confirm-icon')" 
+            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+          >
+            <i id="confirm-icon" class="fa-regular fa-eye text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Terms & Conditions Checkbox -->
+        <div class="flex items-start gap-2">
+          <input 
+            type="checkbox" 
+            id="terms" 
+            required 
+            class="mt-1 w-4 h-4 rounded border-gray-300 text-brandDark focus:ring-brandDark cursor-pointer"
+          />
+          <label for="terms" class="text-xs text-gray-500 cursor-pointer">
+            I <span class="text-brandOrange font-semibold">agree</span> to the 
+            <a href="#" class="text-brandDark font-semibold hover:underline">Terms &amp; Conditions</a> and 
+            <a href="#" class="text-brandDark font-semibold hover:underline">Privacy Policy</a>
+          </label>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" 
-                class="w-full bg-brandDark hover:bg-slate-800 text-white font-semibold py-3 rounded-lg text-sm shadow-md transition duration-200">
-          Login
+        <button 
+          type="submit" 
+          class="w-full bg-brandDark hover:bg-slate-800 text-white font-semibold py-3 rounded-lg text-sm shadow-md transition duration-200"
+        >
+          Create Account
         </button>
       </form>
 
-      <!-- Divider -->
-      <div class="relative flex py-4 items-center max-w-sm mx-auto w-full">
-        <div class="flex-grow border-t border-gray-300"></div>
-        <span class="flex-shrink mx-3 text-xs text-gray-400">Or</span>
-        <div class="flex-grow border-t border-gray-300"></div>
-      </div>
-
-      <!-- Social Login Buttons -->
-      <div class="flex justify-center space-x-4 mb-6">
-        <button class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white shadow-sm hover:bg-gray-50 transition">
-          <i class="fa-brands fa-google text-red-500 text-base"></i>
-        </button>
-        <button class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white shadow-sm hover:bg-gray-50 transition">
-          <i class="fa-brands fa-apple text-black text-base"></i>
-        </button>
-        <button class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white shadow-sm hover:bg-gray-50 transition">
-          <i class="fa-brands fa-facebook-f text-blue-600 text-base"></i>
-        </button>
-      </div>
-
-      <!-- Sign Up Link -->
-      <div class="text-center text-xs text-gray-500">
-        Don't have an account? <a href="auth.html" class="text-brandOrange font-semibold hover:underline">Sign up</a>
+      <!-- Login Link -->
+      <div class="text-center text-xs text-gray-500 mt-4">
+        Already have an account? 
+        <a href="login.html" class="text-brandOrange font-semibold hover:underline">Log in</a>
       </div>
 
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript -->
   <script>
     let currentRole = 'renter';
 
     function setRole(role) {
       currentRole = role;
-      
+
       const btnRenter = document.getElementById('btn-renter');
       const btnOwner = document.getElementById('btn-owner');
       const roleTitle = document.getElementById('role-title-text');
       const roleDesc = document.getElementById('role-description');
 
+      const activeClasses = 'w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 bg-brandDark text-white shadow-md';
+      const inactiveClasses = 'w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 text-gray-600 hover:text-brandDark';
+
       if (role === 'renter') {
-        // Active Renter Button
-        btnRenter.className = "w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 bg-brandDark text-white shadow-md";
-        btnOwner.className = "w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 text-gray-600 hover:text-brandDark";
-        
-        // Text Updates
-        roleTitle.textContent = "a Renter";
-        roleDesc.innerHTML = 'Logging in as a <span class="font-semibold text-gray-700">renter</span> – browse and book equipments';
+        btnRenter.className = activeClasses;
+        btnOwner.className = inactiveClasses;
+        roleTitle.textContent = 'Renter';
+        roleDesc.textContent = 'Find trusted equipment nearby and book with confidence.';
       } else {
-        // Active Owner Button
-        btnOwner.className = "w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 bg-brandDark text-white shadow-md";
-        btnRenter.className = "w-1/2 py-2 px-4 rounded-full text-sm font-semibold transition-all duration-300 text-gray-600 hover:text-brandDark";
-        
-        // Text Updates
-        roleTitle.textContent = "an Owner";
-        roleDesc.innerHTML = 'Logging in as an <span class="font-semibold text-gray-700">owner</span> – manage your listings and earnings';
+        btnOwner.className = activeClasses;
+        btnRenter.className = inactiveClasses;
+        roleTitle.textContent = 'Owner';
+        roleDesc.textContent = 'List your equipment and start earning from your gear.';
       }
     }
 
-    function togglePassword() {
-      const passwordInput = document.getElementById('password');
-      const toggleIcon = document.getElementById('password-toggle-icon');
-      
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleIcon.classList.remove('fa-eye');
-        toggleIcon.classList.add('fa-eye-slash');
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
       } else {
-        passwordInput.type = 'password';
-        toggleIcon.classList.remove('fa-eye-slash');
-        toggleIcon.classList.add('fa-eye');
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
       }
     }
 
-    function handleLogin(e) {
+    function handleSignup(e) {
       e.preventDefault();
-      alert(`Logging in as ${currentRole.toUpperCase()}`);
+
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm-password').value;
+
+      if (password !== confirm) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      alert(`Account created as ${currentRole.toUpperCase()}!`);
     }
   </script>
-</>
+</body>
 </html>

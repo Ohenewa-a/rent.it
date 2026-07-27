@@ -1,385 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrustLend Authentication</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLend Authentication</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Font — swap "Poppins" if your Figma Design System says otherwise -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        *{
-            font-family:'Poppins',sans-serif;
-        }
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        body{
-            background:#f4f6fb;
-        }
-
-        input{
-            outline:none;
-        }
-
-        .active{
-            background:#132F6B;
-            color:white;
-        }
-
-        .inactive{
-            background:white;
-            color:#132F6B;
-        }
-
-        .fade{
-            transition:.3s;
-        }
-    </style>
-
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: '#132F6B',
+            brandHover: '#0D234F',
+            accent: '#F59E0B',
+            surface: '#F6F8FD',
+          },
+        },
+      },
+    }
+  </script>
 </head>
 
-<body>
-
-<div class="min-h-screen flex items-center justify-center p-6">
-
-<div class="w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden">
-
-<div class="grid md:grid-cols-2">
-
-<!-- ================= LEFT SIDE ================= -->
-
-<div class="relative">
-
-<img
-id="sideImage"
-src="images/close-up-camera-tripod-sandy-beach-camera-with-lens 1.png"
-class="w-full h-full object-cover"
-alt="">
-
-<div class="absolute top-8 left-8 flex items-center gap-2">
-
-<img
-src="images/logo.png"
-class="w-10">
-
-<h1 class="text-white font-bold text-2xl">
-Trust<span class="text-yellow-400">Lend</span>
-</h1>
-
-</div>
-
-</div>
-
-<!-- ================= RIGHT SIDE ================= -->
-
-<div class="bg-[#F6F8FD] p-10 flex items-center">
-
-<div class="w-full max-w-md mx-auto">
-
-<h2
-id="pageTitle"
-class="text-4xl font-bold text-center text-[#132F6B]">
-
-Sign up as an
-
-</h2>
-
-<h3
-id="roleTitle"
-class="text-4xl font-bold text-center text-yellow-500 mt-2">
-
-Owner
-
-</h3>
-
-<!-- Toggle -->
-
-<div class="flex justify-center mt-8">
-
-<div class="bg-white rounded-full p-1 flex shadow">
-
-<button
-id="renterBtn"
-onclick="switchRole('renter')"
-class="px-6 py-2 rounded-full inactive">
-
-I'm a Renter
-
-</button>
-
-<button
-id="ownerBtn"
-onclick="switchRole('owner')"
-class="px-6 py-2 rounded-full active">
-
-I'm an Owner
-
-</button>
-
-</div>
-
-</div>
-
-<p
-id="description"
-class="text-center text-gray-500 text-sm mt-5">
-
-Find trusted equipment nearby and book with confidence.
-
-</p>
-
-<!-- FORM -->
-
-<form class="mt-8 space-y-4">
-
-<input
-type="text"
-placeholder="Full Name"
-class="w-full border rounded-full px-5 py-3">
-
-<input
-type="email"
-placeholder="Email Address"
-class="w-full border rounded-full px-5 py-3">
-
-<input
-type="text"
-placeholder="Phone Number"
-class="w-full border rounded-full px-5 py-3">
-
-<div class="relative">
-
-<input
-id="password"
-type="password"
-placeholder="Password"
-class="w-full border rounded-full px-5 py-3">
-
-<button
-type="button"
-onclick="togglePassword()"
-class="absolute right-5 top-3">
-
-👁
-
-</button>
-
-</div>
-
-<div class="relative">
-
-<input
-id="confirmPassword"
-type="password"
-placeholder="Confirm Password"
-class="w-full border rounded-full px-5 py-3">
-
-<button
-type="button"
-onclick="toggleConfirmPassword()"
-class="absolute right-5 top-3">
-
-👁
-
-</button>
-
-</div>
-
-<div class="flex items-start gap-3">
-
-<input
-type="checkbox"
-class="mt-1">
-
-<p class="text-sm">
-
-I agree to the
-
-<a href="#" class="text-[#132F6B] font-semibold">
-Terms &
-Conditions
-</a>
-
-and
-
-<a href="#" class="text-[#132F6B] font-semibold">
-Privacy Policy
-</a>
-
-</p>
-
-</div>
-
-<button
-class="w-full bg-[#132F6B] hover:bg-[#0D234F] text-white py-3 rounded-full font-semibold transition">
-
-Create Account
-
-</button>
-
-</form>
-
-<p class="text-center text-sm mt-8">
-
-Already have an account?
-
-<a
-href="signup.html"
-onclick="switchMode()"
-class="text-yellow-500 font-semibold">
-
-Log in
-
-</a>
-
-</p>
-
-<script>
-
-let currentRole = "owner";
-let currentMode = "signup";
-
-// ----------------------------
-// Switch Between Owner/Renter
-// ----------------------------
-function switchRole(role){
-
-    currentRole = role;
-
-    const ownerBtn = document.getElementById("ownerBtn");
-    const renterBtn = document.getElementById("renterBtn");
-
-    const roleTitle = document.getElementById("roleTitle");
-    const description = document.getElementById("description");
-    const sideImage = document.getElementById("sideImage");
-
-    if(role === "owner"){
-
-        ownerBtn.classList.add("active");
-        ownerBtn.classList.remove("inactive");
-
-        renterBtn.classList.remove("active");
-        renterBtn.classList.add("inactive");
-
-        roleTitle.innerHTML = "Owner";
-
-        description.innerHTML =
-        "Find trusted equipment nearby and book with confidence.";
-
-        sideImage.src = "images/owner.jpg";
-
-    }else{
-
-        renterBtn.classList.add("active");
-        renterBtn.classList.remove("inactive");
-
-        ownerBtn.classList.remove("active");
-        ownerBtn.classList.add("inactive");
-
-        roleTitle.innerHTML = "Renter";
-
-        description.innerHTML =
-        "Browse equipment available near you and rent securely.";
-
-        sideImage.src = "images/renter.jpg";
-
+<body class="bg-[#f4f6fb] min-h-screen flex items-center justify-center p-4">
+
+  <!-- Card Container — reduced max-width so it doesn't stretch too wide -->
+  <div class="w-full max-w-5xl bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+
+    <!-- ============ LEFT: Image ============ -->
+    <div class="w-full md:w-5/12 relative min-h-[250px] md:min-h-[700px]">
+      <img
+        id="sideImage"
+        src="images/signup(renter & owner).png"
+        alt="Canon DSLR camera on dark background"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <!-- Dark overlay -->
+      <div class="absolute inset-0 bg-black/40"></div>
+
+      <!-- Logo -->
+      <div class="absolute top-8 left-8 flex items-center gap-2 z-10">
+        <img src="images/logo.png" class="w-10" alt="TrustLend logo" />
+        <h1 class="text-white font-bold text-2xl">
+          Trust<span class="text-accent">Lend</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- ============ RIGHT: Form ============ -->
+    <div class="w-full md:w-7/12 bg-surface p-8 sm:p-10 flex items-center">
+      <div class="w-full max-w-md mx-auto">
+
+        <!-- Title -->
+        <h2 id="pageTitle" class="text-3xl font-bold text-center text-brand">
+          Sign up as a
+        </h2>
+        <h3 id="roleTitle" class="text-3xl font-bold text-center text-accent mt-1">
+          Renter
+        </h3>
+
+        <!-- Role Toggle -->
+        <div class="flex justify-center mt-6">
+          <div class="bg-white rounded-full p-1 flex shadow">
+            <button
+              id="renterBtn"
+              onclick="switchRole('renter')"
+              class="px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-brand text-white"
+            >
+              I'm a Renter
+            </button>
+            <button
+              id="ownerBtn"
+              onclick="switchRole('owner')"
+              class="px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-brand"
+            >
+              I'm an Owner
+            </button>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p id="description" class="text-center text-gray-500 text-sm mt-4">
+          Find trusted equipment nearby and book with confidence.
+        </p>
+
+        <!-- Form -->
+        <form id="authForm" onsubmit="handleSubmit(event)" class="mt-6 space-y-4">
+
+          <!-- Signup-only fields -->
+          <div id="signupFields">
+            <div class="space-y-4">
+              <input
+                type="text"
+                placeholder="Full Name"
+                required
+                class="w-full border border-gray-300 rounded-lg px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand transition"
+              />
+              <!-- (Email is shared, sits outside this wrapper) -->
+            </div>
+          </div>
+
+          <!-- Email — always visible -->
+          <input
+            id="emailInput"
+            type="email"
+            placeholder="Email Address"
+            required
+            class="w-full border border-gray-300 rounded-lg px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand transition"
+          />
+
+          <!-- Phone — signup only -->
+          <div id="phoneField">
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              required
+              class="w-full border border-gray-300 rounded-lg px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand transition"
+            />
+          </div>
+
+          <!-- Password -->
+          <div class="relative">
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              required
+              class="w-full border border-gray-300 rounded-lg px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand transition pr-12"
+            />
+            <button
+              type="button"
+              onclick="togglePassword('password', 'pwIcon')"
+              class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
+            >
+              <i id="pwIcon" class="fa-regular fa-eye-slash text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Confirm Password — signup only -->
+          <div id="confirmField" class="relative">
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              required
+              class="w-full border border-gray-300 rounded-lg px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand transition pr-12"
+            />
+            <button
+              type="button"
+              onclick="togglePassword('confirmPassword', 'cpIcon')"
+              class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
+            >
+              <i id="cpIcon" class="fa-regular fa-eye-slash text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Terms checkbox — signup only -->
+          <div id="termsField" class="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="terms"
+              required
+              class="mt-1 w-4 h-4 rounded border-gray-300 cursor-pointer"
+            />
+            <label for="terms" class="text-sm text-gray-600 cursor-pointer">
+              I <span class="text-accent font-semibold">agree</span> to the
+              <a href="#" class="text-brand font-semibold hover:underline">Terms &amp; Conditions</a>
+              and
+              <a href="#" class="text-brand font-semibold hover:underline">Privacy Policy</a>
+            </label>
+          </div>
+
+          <!-- Login-only: Forgot password -->
+          <div id="forgotField" class="hidden text-left">
+            <a href="#" class="text-sm font-semibold text-accent hover:underline">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button
+            id="submitBtn"
+            type="submit"
+            class="w-full bg-brand hover:bg-brandHover text-white py-3 rounded-lg font-semibold text-sm shadow-md transition duration-200"
+          >
+            Create Account
+          </button>
+        </form>
+
+        <!-- Login-only: Social login -->
+        <div id="socialLogin" class="hidden">
+          <div class="relative flex py-4 items-center">
+            <div class="flex-grow border-t border-gray-300"></div>
+            <span class="flex-shrink mx-3 text-xs text-gray-400">Or</span>
+            <div class="flex-grow border-t border-gray-300"></div>
+          </div>
+          <div class="flex justify-center gap-4">
+            <button class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white shadow-sm hover:bg-gray-50 transition">
+              <i class="fa-brands fa-google text-red-500"></i>
+            </button>
+            <button class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white shadow-sm hover:bg-gray-50 transition">
+              <i class="fa-brands fa-apple text-black"></i>
+            </button>
+            <button class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-white shadow-sm hover:bg-gray-50 transition">
+              <i class="fa-brands fa-facebook-f text-blue-600"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bottom link -->
+        <p id="bottomLink" class="text-center text-sm text-gray-500 mt-6">
+          Already have an account?
+          <a href="#" onclick="switchMode()" class="text-accent font-semibold hover:underline">Log in</a>
+        </p>
+
+      </div>
+    </div>
+    <!-- end right side -->
+
+  </div>
+  <!-- end card -->
+
+  <script>
+    let currentRole = 'renter';
+    let currentMode = 'signup';
+
+    // ── Side Image Paths ─────────────────────
+    // Update these filenames to match your actual image files
+    const sideImages = {
+      signup: 'images/signup(renter & owner).png',
+      login:  'images/login(renter & owner).png',
+    };
+
+    function updateSideImage() {
+      document.getElementById('sideImage').src = sideImages[currentMode];
     }
 
-}
+    // ── Role Toggle ──────────────────────────
+    function switchRole(role) {
+      currentRole = role;
 
-// ----------------------------
-// Signup/Login Switch
-// ----------------------------
+      const renterBtn  = document.getElementById('renterBtn');
+      const ownerBtn   = document.getElementById('ownerBtn');
+      const roleTitle  = document.getElementById('roleTitle');
+      const pageTitle  = document.getElementById('pageTitle');
+      const description = document.getElementById('description');
 
-function switchMode(){
+      const activeClasses   = 'px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-brand text-white';
+      const inactiveClasses = 'px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-brand';
 
-    const pageTitle = document.getElementById("pageTitle");
-    const form = document.querySelector("form");
-    const submitBtn = form.querySelector("button");
-    const bottomText = document.querySelector("p:last-child");
+      if (role === 'renter') {
+        renterBtn.className = activeClasses;
+        ownerBtn.className  = inactiveClasses;
+        roleTitle.textContent = 'Renter';
+        pageTitle.textContent = currentMode === 'signup' ? 'Sign up as a' : 'Login as a';
+        description.textContent = 'Find trusted equipment nearby and book with confidence.';
+      } else {
+        ownerBtn.className  = activeClasses;
+        renterBtn.className = inactiveClasses;
+        roleTitle.textContent = 'Owner';
+        pageTitle.textContent = currentMode === 'signup' ? 'Sign up as an' : 'Login as an';
+        description.textContent = 'List your equipment and start earning from your gear.';
+      }
 
-    const fullName = form.querySelector('input[type="text"]');
-    const phone = form.querySelectorAll('input[type="text"]')[1];
-    const confirm = document.getElementById("confirmPassword");
-
-    if(currentMode === "signup"){
-
-        currentMode = "login";
-
-        pageTitle.innerHTML = "Login as a";
-
-        fullName.parentElement.style.display = "none";
-        phone.parentElement.style.display = "none";
-        confirm.parentElement.style.display = "none";
-
-        submitBtn.innerHTML = "Login";
-
-        bottomText.innerHTML =
-        `Don't have an account?
-        <a href="#" onclick="switchMode()" class="text-yellow-500 font-semibold">
-        Sign Up
-        </a>`;
-
-    }else{
-
-        currentMode = "signup";
-
-        pageTitle.innerHTML = "Sign up as an";
-
-        fullName.parentElement.style.display = "block";
-        phone.parentElement.style.display = "block";
-        confirm.parentElement.style.display = "block";
-
-        submitBtn.innerHTML = "Create Account";
-
-        bottomText.innerHTML =
-        `Already have an account?
-        <a href="#" onclick="switchMode()" class="text-yellow-500 font-semibold">
-        Log in
-        </a>`;
-
+      updateSideImage();
     }
 
-}
+    // ── Signup / Login Toggle ────────────────
+    function switchMode() {
+      const signupFields = document.getElementById('signupFields');
+      const phoneField   = document.getElementById('phoneField');
+      const confirmField = document.getElementById('confirmField');
+      const termsField   = document.getElementById('termsField');
+      const forgotField  = document.getElementById('forgotField');
+      const socialLogin  = document.getElementById('socialLogin');
+      const submitBtn    = document.getElementById('submitBtn');
+      const pageTitle    = document.getElementById('pageTitle');
+      const bottomLink   = document.getElementById('bottomLink');
 
-// ----------------------------
-// Password Toggle
-// ----------------------------
+      // Toggle required on hidden fields so they don't block submission
+      const signupInputs = [
+        ...signupFields.querySelectorAll('input'),
+        ...phoneField.querySelectorAll('input'),
+        ...confirmField.querySelectorAll('input'),
+        ...termsField.querySelectorAll('input'),
+      ];
 
-function togglePassword(){
+      if (currentMode === 'signup') {
+        currentMode = 'login';
 
-    const input = document.getElementById("password");
+        // Hide signup-only fields
+        signupFields.classList.add('hidden');
+        phoneField.classList.add('hidden');
+        confirmField.classList.add('hidden');
+        termsField.classList.add('hidden');
 
-    input.type =
-        input.type === "password"
-        ? "text"
-        : "password";
+        // Show login-only fields
+        forgotField.classList.remove('hidden');
+        socialLogin.classList.remove('hidden');
 
-}
+        // Disable required on hidden inputs
+        signupInputs.forEach(input => input.removeAttribute('required'));
 
-function toggleConfirmPassword(){
+        submitBtn.textContent = 'Login';
+        pageTitle.textContent = currentRole === 'renter' ? 'Login as a' : 'Login as an';
 
-    const input = document.getElementById("confirmPassword");
+        bottomLink.innerHTML =
+          'Don\'t have an account? <a href="#" onclick="switchMode()" class="text-accent font-semibold hover:underline">Sign up</a>';
 
-    input.type =
-        input.type === "password"
-        ? "text"
-        : "password";
+      } else {
+        currentMode = 'signup';
 
-}
+        // Show signup fields
+        signupFields.classList.remove('hidden');
+        phoneField.classList.remove('hidden');
+        confirmField.classList.remove('hidden');
+        termsField.classList.remove('hidden');
 
-</script>
+        // Hide login-only fields
+        forgotField.classList.add('hidden');
+        socialLogin.classList.add('hidden');
+
+        // Re-enable required
+        signupInputs.forEach(input => input.setAttribute('required', ''));
+
+        submitBtn.textContent = 'Create Account';
+        pageTitle.textContent = currentRole === 'renter' ? 'Sign up as a' : 'Sign up as an';
+
+        bottomLink.innerHTML =
+          'Already have an account? <a href="#" onclick="switchMode()" class="text-accent font-semibold hover:underline">Log in</a>';
+      }
+
+      updateSideImage();
+    }
+
+    // ── Password Visibility ─────────────────
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon  = document.getElementById(iconId);
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      }
+    }
+
+    // ── Form Submit ─────────────────────────
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      if (currentMode === 'signup') {
+        const pw = document.getElementById('password').value;
+        const cp = document.getElementById('confirmPassword').value;
+
+        if (pw !== cp) {
+          alert('Passwords do not match.');
+          return;
+        }
+        alert('Account created as ' + currentRole.toUpperCase() + '!');
+      } else {
+        alert('Logging in as ' + currentRole.toUpperCase() + '!');
+      }
+    }
+  </script>
 
 </body>
 </html>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
