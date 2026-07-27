@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLend - Onboarding</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandDark: '#0B1E3F',
+            brandOrange: '#F59E0B',
+            brandCardYellow: '#F3B73E',
+            bgLight: '#F1F5F9',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 sm:p-6">
+
+  <!-- Container for Desktop & Mobile -->
+  <div class="w-full max-w-4xl bg-bgLight rounded-3xl shadow-2xl border border-gray-200 overflow-hidden min-h-[680px] flex flex-col justify-between p-6 sm:p-12 relative">
+    
+    <!-- Top Bar / Skip Button -->
+    <div class="flex justify-end w-full">
+      <button onclick="goToLogin()" class="text-gray-500 font-semibold hover:text-brandDark transition text-sm sm:text-base">
+        <a href=signup.html>Skip</a>
+      </button>
+    </div>
+
+    <!-- CAROUSEL SLIDES CONTAINER -->
+    <div class="relative w-full my-auto overflow-hidden">
+      
+      <!-- Slide 1: Rent Safe / Earn More -->
+      <div id="slide-0" class="slide transition-all duration-500 transform translate-x-0 opacity-100 flex flex-col items-center text-center">
+        <!-- Illustration Placeholder / Graphic Area -->
+        <div class="w-full max-w-md h-64 sm:h-72 mb-8 flex items-center justify-center">
+          <div class="relative w-full h-full flex items-center justify-center">
+            <!-- Central Shield & Laptop Graphic Concept -->
+            <div class="w-48 h-48 bg-amber-100 rounded-full flex items-center justify-center animate-pulse">
+              <img src="images/ChatGPT Image Jul 27, 2026, 02_55_39 AM 2.png">
+            </div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-brandDark">
+          Rent safe <br>
+          <span class="text-brandOrange">Earn more</span>
+        </h1>
+        <p class="text-gray-600 max-w-md text-sm sm:text-base mt-4 leading-relaxed">
+          List your equipments, reach more people and grow your income while we handle the security and payments.
+        </p>
+      </div>
+
+      <!-- Slide 2: Built on Trust -->
+      <div id="slide-1" class="slide hidden transition-all duration-500 transform translate-x-full opacity-0 flex flex-col items-center text-center">
+        <!-- Security Graphic / Vector Mockup -->
+        <div class="w-full max-w-md h-64 sm:h-72 mb-6 flex items-center justify-center relative">
+          <!-- Illustration Container -->
+          <div class="relative flex flex-col items-center justify-center">
+            <!-- Floating Cards Concept -->
+            <div class="absolute -top-6 flex space-x-6 text-brandDark opacity-80">
+              
+            </div>
+            
+            <!-- Laptop with Shield -->
+            <div class="relative bg-brandDark text-brandOrange p-6 rounded-2xl border-4 border-brandOrange shadow-xl w-56 sm:w-64">
+              
+              <div class="mt-2 text-white font-bold text-xs uppercase tracking-widest"></div>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-brandDark mb-6">
+          Built on <span class="text-brandOrange">Trust</span>
+        </h1>
+
+        <!-- Cards List -->
+        <div class="w-full max-w-md space-y-3">
+          <!-- Card 1 -->
+          <div class="bg-brandCardYellow text-brandDark font-medium p-3.5 rounded-xl flex items-center shadow-sm">
+            <div class="w-10 h-10 flex items-center justify-center text-xl mr-3">
+              <i class="fa-solid fa-shield text-brandDark"></i>
+            </div>
+            <div class="text-left">
+              <div class="font-bold text-sm sm:text-base leading-tight">Identity Verification</div>
+              <div class="text-xs opacity-80">Real people. Verified profiles</div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-brandCardYellow text-brandDark font-medium p-3.5 rounded-xl flex items-center shadow-sm">
+            <div class="w-10 h-10 flex items-center justify-center text-xl mr-3">
+              <i class="fa-solid fa-credit-card text-brandDark"></i>
+            </div>
+            <div class="text-left">
+              <div class="font-bold text-sm sm:text-base leading-tight">Secured Payments</div>
+              <div class="text-xs opacity-80">Encrypted transactions</div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-brandCardYellow text-brandDark font-medium p-3.5 rounded-xl flex items-center shadow-sm">
+            <div class="w-10 h-10 flex items-center justify-center text-xl mr-3">
+              <i class="fa-solid fa-wallet text-brandDark"></i>
+            </div>
+            <div class="text-left">
+              <div class="font-bold text-sm sm:text-base leading-tight">Protected Deposits</div>
+              <div class="text-xs opacity-80">Safe deposits. Zero worries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM CONTROLS & NAVIGATION -->
+    <div class="w-full max-w-md mx-auto flex flex-col items-center mt-6">
+      
+      <!-- Pagination Dots -->
+      <div class="flex space-x-2 mb-6">
+        <span id="dot-0" onclick="goToSlide(0)" class="w-3 h-3 rounded-full bg-brandDark cursor-pointer transition-all duration-300"></span>
+        <span id="dot-1" onclick="goToSlide(1)" class="w-3 h-3 rounded-full bg-gray-300 cursor-pointer transition-all duration-300"></span>
+      </div>
+
+      <!-- Action Button -->
+      <button id="action-btn" onclick="nextSlide()" 
+              class="w-full bg-brandDark hover:bg-slate-800 text-white font-semibold py-4 rounded-xl text-base shadow-lg transition duration-200">
+        Next
+      </button>
+
+      <!-- Sub-link (Skip) -->
+      <button id="sub-skip-btn" onclick="goToLogin()" class="mt-3 text-brandDark font-semibold text-sm hover:underline">
+        Skip
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- JavaScript Navigation Logic -->
+  <script>
+    let currentSlide = 0;
+    const totalSlides = 2;
+
+    function updateCarousel() {
+      // Manage Slides
+      for (let i = 0; i < totalSlides; i++) {
+        const slide = document.getElementById(`slide-${i}`);
+        const dot = document.getElementById(`dot-${i}`);
+
+        if (i === currentSlide) {
+          slide.classList.remove('hidden', 'translate-x-full', '-translate-x-full', 'opacity-0');
+          slide.classList.add('translate-x-0', 'opacity-100');
+          
+          // Dot styles
+          dot.classList.remove('bg-gray-300');
+          dot.classList.add('bg-brandDark', 'w-8'); // Expanded pill style for active dot
+        } else {
+          slide.classList.add('hidden', 'opacity-0');
+          slide.classList.remove('translate-x-0', 'opacity-100');
+          
+          // Dot styles
+          dot.classList.remove('bg-brandDark', 'w-8');
+          dot.classList.add('bg-gray-300', 'w-3');
+        }
+      }
+
+      // Update Button Text & Behavior on the last slide
+      const actionBtn = document.getElementById('action-btn');
+      const subSkipBtn = document.getElementById('sub-skip-btn');
+
+      if (currentSlide === totalSlides - 1) {
+        actionBtn.textContent = 'Get Started';
+        subSkipBtn.classList.add('hidden'); // Hide lower skip button on final step
+      } else {
+        actionBtn.textContent = 'Next';
+        subSkipBtn.classList.remove('hidden');
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateCarousel();
+      } else {
+        goToLogin();
+      }
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    function goToLogin() {
+      // Redirect to the login page (e.g. signup.html)
+      // Replace 'login.html' with your actual login page file path or route
+      window.location.href = 'signup.html'; 
+    }
+
+    // Initialize state
+    updateCarousel();
+  </script>
+</body>
+</html>
