@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLend - Booking Calendar</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: '#132F6B',
+            brandLight: '#1A3D7D',
+            accent: '#F59E0B',
+            surface: '#F6F8FD',
+            activeGreen: '#2E7D5B',
+            activeGreenBg: '#E8F5EC',
+            upcomingTeal: '#1A7F7F',
+            upcomingTealBg: '#E0F2F1',
+            maintYellow: '#C49A1A',
+            maintYellowBg: '#FFF8E1',
+            returnedGray: '#6B7280',
+            returnedGrayBg: '#F3F4F6',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .calendar-scroll::-webkit-scrollbar { height: 6px; }
+    .calendar-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  </style>
+</head>
+
+<body class="bg-[#f0f2f5] min-h-screen flex text-sm">
+
+  <!-- ============ SIDEBAR (Dark Navy) ============ -->
+  <aside class="w-[230px] bg-brand min-h-screen flex flex-col shrink-0">
+
+    <!-- Logo -->
+    <div class="px-5 pt-6 pb-5 flex items-center gap-2">
+      <img src="images/logo.png" class="w-8" alt="TrustLend logo" onerror="this.style.display='none'" />
+      <span class="font-bold text-lg text-white">Trust<span class="text-accent">Lend</span></span>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex-1 px-4 pb-6 text-[13px]">
+
+      <!-- Manage -->
+      <p class="text-[10px] font-semibold text-white/40 uppercase tracking-widest mt-2 mb-2 px-2">Manage</p>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span class="mr-2 text-white/40">•</span> Dashboard
+      </a>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span class="mr-2 text-white/40">•</span> My Equipment
+      </a>
+      <a href="#" class="flex items-center justify-between px-3 py-2 bg-accent text-brand rounded-lg font-semibold">
+        <span><span class="mr-2">•</span> Bookings</span>
+        <span class="bg-brand text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">4</span>
+      </a>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg mt-0.5">
+        <span class="mr-2 text-white/40">•</span> Return Inspection
+      </a>
+
+      <!-- Finance -->
+      <p class="text-[10px] font-semibold text-white/40 uppercase tracking-widest mt-6 mb-2 px-2">Finance</p>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span class="mr-2 text-white/40">•</span> Payments
+      </a>
+
+      <!-- Activity -->
+      <p class="text-[10px] font-semibold text-white/40 uppercase tracking-widest mt-6 mb-2 px-2">Activity</p>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span class="mr-2 text-white/40">•</span> Messages
+      </a>
+      <a href="#" class="flex items-center justify-between px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span><span class="mr-2 text-white/40">•</span> Notifications</span>
+        <span class="bg-red-500 text-white text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center">5</span>
+      </a>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span class="mr-2 text-white/40">•</span> Reviews
+      </a>
+
+      <!-- Account -->
+      <p class="text-[10px] font-semibold text-white/40 uppercase tracking-widest mt-6 mb-2 px-2">Account</p>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span class="mr-2 text-white/40">•</span> Profile
+      </a>
+      <a href="#" class="block px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg">
+        <span class="mr-2 text-white/40">•</span> Settings
+      </a>
+    </nav>
+  </aside>
+
+
+  <!-- ============ MAIN ============ -->
+  <main class="flex-1 flex flex-col min-h-screen overflow-hidden">
+
+    <!-- Top Bar -->
+    <div class="bg-white px-6 py-3 flex items-center justify-between">
+
+      <!-- Left -->
+      <div>
+        <h1 class="text-lg font-bold text-brand">Bookings</h1>
+        <p class="text-gray-400 text-[11px] mt-0.5">
+          <i class="fa-solid fa-calendar-days mr-1"></i>
+          Upcoming Booking, Returned Equipment and Maintenance schedule
+        </p>
+      </div>
+
+      <!-- Right -->
+      <div class="flex items-center gap-3">
+        <!-- View Toggle -->
+        <div class="flex bg-gray-100 rounded-full p-0.5">
+          <button id="fleetBtn" onclick="setView('fleet')"
+            class="px-4 py-1.5 rounded-full text-xs font-semibold bg-brand text-white transition">
+            Fleet View
+          </button>
+          <button id="itemBtn" onclick="setView('item')"
+            class="px-4 py-1.5 rounded-full text-xs font-semibold text-gray-500 transition">
+            Item View
+          </button>
+        </div>
+
+        <!-- Export PDF -->
+        <button class="flex items-center gap-1.5 bg-activeGreen hover:bg-green-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
+          <i class="fa-solid fa-file-export text-[11px]"></i>
+          Export PDF
+        </button>
+
+        <!-- Bell -->
+        <button class="relative text-gray-400 hover:text-gray-600 transition">
+          <i class="fa-solid fa-bell text-base"></i>
+          <span class="absolute -top-1 -right-1.5 bg-red-500 text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </button>
+
+        <!-- Avatar -->
+        <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden ml-1">
+          <img src="images/dp.png" alt="User" class="w-full h-full object-cover" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Calendar Area -->
+    <div class="flex-1 p-5 overflow-auto">
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+
+        <div class="calendar-scroll overflow-x-auto">
+          <table class="w-full min-w-[950px] border-collapse">
+
+            <!-- Header -->
+            <thead>
+              <tr class="border-b border-gray-200 bg-gray-50/80">
+                <th class="text-left px-4 py-3 text-[10px] font-semibold text-gray-400 uppercase tracking-widest w-[210px]">
+                  Asset Details
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">MON</span>
+                  <span class="text-sm font-bold text-gray-600">14</span>
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">TUE</span>
+                  <span class="text-sm font-bold text-gray-600">15</span>
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">WED</span>
+                  <span class="text-sm font-bold text-gray-600">16</span>
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">THU</span>
+                  <span class="text-sm font-bold text-gray-600">17</span>
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">FRI</span>
+                  <span class="text-sm font-bold text-gray-600">18</span>
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">SAT</span>
+                  <span class="text-sm font-bold text-gray-600">19</span>
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">SUN</span>
+                  <span class="text-sm font-bold text-gray-600">20</span>
+                </th>
+                <th class="text-center px-1 py-3 w-[90px]">
+                  <span class="text-[10px] text-gray-400 font-semibold uppercase block">MON</span>
+                  <span class="text-sm font-bold text-gray-600">21</span>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <!-- Row 1: Excavator 3000-X -->
+              <tr class="border-b border-gray-100">
+                <td class="px-4 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                      <img src="images/frame(1).png" alt="Excavator" class="w-full h-full object-cover"
+                        onerror="this.parentElement.innerHTML='<span class=\'text-[9px] text-gray-400 flex items-center justify-center h-full\'>IMG</span>'">
+                    </div>
+                    <div>
+                      <p class="font-semibold text-gray-800 text-[13px] leading-tight">Excavator 3000-X</p>
+                      <span class="text-[9px] font-bold uppercase tracking-wider text-orange-600 bg-orange-100 px-1.5 py-0.5 rounded mt-1 inline-block">Heavy Duty</span>
+                    </div>
+                  </div>
+                </td>
+                <td colspan="3" class="px-1 py-5">
+                  <div class="bg-activeGreenBg text-activeGreen text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    ● ACTIVE : BuildCorp Pro Ltd (Oct 16)
+                  </div>
+                </td>
+                <td colspan="2" class="px-1 py-5">
+                  <div class="bg-maintYellowBg text-maintYellow text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    🔧 MAINTENANCE
+                  </div>
+                </td>
+                <td class="px-1 py-5"></td>
+                <td colspan="2" class="px-1 py-5">
+                  <div class="bg-upcomingTealBg text-upcomingTeal text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    ● UPCOMING : City Logistics
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 2: Boom Lift Z-45 -->
+              <tr class="border-b border-gray-100">
+                <td class="px-4 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                      <img src="images/frame(2).png" alt="Boom Lift" class="w-full h-full object-cover"
+                        onerror="this.parentElement.innerHTML='<span class=\'text-[9px] text-gray-400 flex items-center justify-center h-full\'>IMG</span>'">
+                    </div>
+                    <div>
+                      <p class="font-semibold text-gray-800 text-[13px] leading-tight">Boom Lift Z-45</p>
+                      <span class="text-[9px] font-bold uppercase tracking-wider text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded mt-1 inline-block">Access Tech</span>
+                    </div>
+                  </div>
+                </td>
+                <td colspan="6" class="px-1 py-5">
+                  <div class="bg-activeGreenBg text-activeGreen text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    ● ACTIVE : Digital Events Inc (Long Term)
+                  </div>
+                </td>
+                <td colspan="2" class="px-1 py-5">
+                  <div class="bg-returnedGrayBg text-returnedGray text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    RETURN OCT 21
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 3: PowerGen 500kW -->
+              <tr class="border-b border-gray-100">
+                <td class="px-4 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                      <img src="images/frame(3).png" alt="PowerGen" class="w-full h-full object-cover"
+                        onerror="this.parentElement.innerHTML='<span class=\'text-[9px] text-gray-400 flex items-center justify-center h-full\'>IMG</span>'">
+                    </div>
+                    <div>
+                      <p class="font-semibold text-gray-800 text-[13px] leading-tight">PowerGen 500kW</p>
+                      <span class="text-[9px] font-bold uppercase tracking-wider text-purple-600 bg-purple-100 px-1.5 py-0.5 rounded mt-1 inline-block">Utilities</span>
+                    </div>
+                  </div>
+                </td>
+                <td colspan="2" class="px-1 py-5">
+                  <div class="bg-returnedGrayBg text-returnedGray text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    ↩ RETURNED
+                  </div>
+                </td>
+                <td colspan="4" class="px-1 py-5">
+                  <div class="bg-activeGreenBg text-activeGreen text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    ● ACTIVE : Metro Grid
+                  </div>
+                </td>
+                <td colspan="2" class="px-1 py-5">
+                  <div class="bg-upcomingTealBg text-upcomingTeal text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    🔄 RECURRING
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 4: LiftMaster 1910 -->
+              <tr class="border-b border-gray-100">
+                <td class="px-4 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                      <img src="images/frame(4).png" alt="LiftMaster" class="w-full h-full object-cover"
+                        onerror="this.parentElement.innerHTML='<span class=\'text-[9px] text-gray-400 flex items-center justify-center h-full\'>IMG</span>'">
+                    </div>
+                    <div>
+                      <p class="font-semibold text-gray-800 text-[13px] leading-tight">LiftMaster 1910</p>
+                      <span class="text-[9px] font-bold uppercase tracking-wider text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded mt-1 inline-block">Warehousing</span>
+                    </div>
+                  </div>
+                </td>
+                <td colspan="3" class="px-1 py-5"></td>
+                <td colspan="3" class="px-1 py-5">
+                  <div class="bg-maintYellowBg text-maintYellow text-[10px] font-semibold px-2 py-2 rounded-md text-center whitespace-nowrap">
+                    🔧 SCHEDULED MAINTENANCE
+                  </div>
+                </td>
+                <td colspan="2" class="px-1 py-5"></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer -->
+        <div class="px-4 py-3 border-t border-gray-100 flex items-center justify-between">
+          <!-- Pagination -->
+          <div class="flex items-center gap-1">
+            <button class="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 text-xs">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+            </button>
+            <button class="w-7 h-7 rounded-full bg-brand text-white text-xs font-semibold flex items-center justify-center">1</button>
+            <button class="w-7 h-7 rounded-full text-gray-500 hover:bg-gray-100 text-xs flex items-center justify-center">2</button>
+            <button class="w-7 h-7 rounded-full text-gray-500 hover:bg-gray-100 text-xs flex items-center justify-center">3</button>
+            <button class="w-7 h-7 rounded-full text-gray-500 hover:bg-gray-100 text-xs flex items-center justify-center">4</button>
+            <button class="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 text-xs">
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+          </div>
+
+          <!-- Legend -->
+          <div class="flex items-center gap-4 text-[10px] text-gray-500">
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-activeGreen"></span> Active Rental
+            </span>
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-upcomingTeal"></span> Upcoming Booking
+            </span>
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-maintYellow"></span> Maintenance
+            </span>
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-returnedGray"></span> Returned / Past
+            </span>
+            <span class="flex items-center gap-1 text-gray-400">
+              <i class="fa-solid fa-circle-info text-[9px]"></i> All dates reflect UTC-05:00
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FAB -->
+  <button class="fixed bottom-6 right-6 w-12 h-12 bg-activeGreen hover:bg-green-700 text-white rounded-full shadow-lg flex items-center justify-center text-xl transition hover:scale-105 z-30">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+
+  <script>
+    function setView(view) {
+      const f = document.getElementById('fleetBtn');
+      const i = document.getElementById('itemBtn');
+      const on  = 'px-4 py-1.5 rounded-full text-xs font-semibold bg-brand text-white transition';
+      const off = 'px-4 py-1.5 rounded-full text-xs font-semibold text-gray-500 transition';
+      if (view === 'fleet') { f.className = on; i.className = off; }
+      else { i.className = on; f.className = off; }
+    }
+  </script>
+
+</body>
+</html>
