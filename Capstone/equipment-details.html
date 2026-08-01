@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLend - Equipment Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: { sidebar: '#1C263B', brand: '#132F6B', accent: '#F59E0B', accentHover: '#D97706', surface: '#F6F8FD' },
+        },
+      },
+    }
+  </script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex text-sm">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="w-[240px] bg-sidebar min-h-screen flex flex-col shrink-0">
+    <div class="px-5 pt-6 pb-5 flex items-center gap-2">
+      <img src="images/logo.png" class="w-8" alt="TrustLend" onerror="this.style.display='none'" />
+      <span class="font-bold text-lg text-white">Trust<span class="text-accent">Lend</span></span>
+    </div>
+    <nav class="flex-1 px-4 pb-6 text-[13px]">
+      <a href="#" class="block px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg"><span class="mr-2 text-white/40">•</span> Dashboard</a>
+      <a href="#" class="flex items-center px-3 py-2.5 bg-accent text-sidebar rounded-lg font-semibold mt-1"><span class="mr-2">•</span> My Equipment</a>
+      <a href="#" class="flex items-center justify-between px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg mt-1"><span><span class="mr-2 text-white/40">•</span> Bookings</span><span class="bg-accent text-sidebar text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">3</span></a>
+      <a href="#" class="block px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg mt-1"><span class="mr-2 text-white/40">•</span> Return Inspection</a>
+      <a href="#" class="block px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg mt-1"><span class="mr-2 text-white/40">•</span> Wallet</a>
+      <a href="#" class="block px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/10 transition rounded-lg mt-1"><span class="mr-2 text-white/40">•</span> Profile</a>
+    </nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="flex-1 flex flex-col min-h-screen overflow-hidden">
+
+    <!-- Top Bar -->
+    <div class="bg-white px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+      <div>
+        <h1 class="text-base font-bold text-brand">My Equipment</h1>
+        <p class="text-[11px] text-gray-400">Equipment details</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="text-gray-400 hover:text-gray-600 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="relative text-gray-400 hover:text-gray-600 transition"><i class="fa-solid fa-bell"></i><span class="absolute -top-1 -right-1 bg-red-500 text-white text-[7px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">2</span></button>
+        <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img src="images/dp.png" alt="User" class="w-full h-full object-cover" onerror="this.style.display='none'"></div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="p-6">
+        <div class="flex gap-6">
+
+          <!-- ======= LEFT COLUMN ======= -->
+          <div class="flex-1">
+
+            <!-- Equipment Header -->
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h2 class="text-xl font-bold text-brand">Caterpillar 305.5E2 Mini Excavator</h2>
+                <p class="text-[11px] text-gray-400 mt-1">LH10 12 · 2024, #1512 · Listed since Jan 2024</p>
+              </div>
+              <button class="border border-brand text-brand text-xs font-semibold px-4 py-2 rounded-lg hover:bg-brand hover:text-white transition">Edit</button>
+            </div>
+
+            <!-- Image Gallery -->
+            <div class="grid grid-cols-3 gap-2 mb-6">
+              <div class="col-span-2 row-span-2 h-[280px] rounded-xl overflow-hidden bg-gray-200">
+                <img src="images/excavator.png" alt="Excavator" class="w-full h-full object-cover">
+              </div>
+              <div class="h-[136px] rounded-xl overflow-hidden bg-gray-200">
+                <img src="images/excavator(2).png" alt="Excavator" class="w-full h-full object-cover">
+              </div>
+              <div class="h-[136px] rounded-xl overflow-hidden bg-gray-200">
+                <img src="images/excavator(3).png" alt="Excavator" class="w-full h-full object-cover">
+              </div>
+            </div>
+
+            <!-- Equipment Overview -->
+            <div class="bg-white rounded-lg border border-gray-200 p-5 mb-6">
+              <h3 class="text-sm font-bold text-brand mb-2">Equipment Overview</h3>
+              <p class="text-[12px] text-gray-500 leading-relaxed">
+                The Caterpillar 505.5E2 Mini Hydraulic Excavator delivers high performance in a compact design to help you work in the tightest applications. The E2 models are designed to meet the high performance, versatility, and durability of Caterpillar while keeping your operating costs low.
+              </p>
+            </div>
+
+            <!-- Specs (inline, not card) -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+              <div>
+                <p class="text-[10px] text-gray-400 uppercase font-semibold">Weight</p>
+                <p class="text-sm font-bold text-brand">5,423 kg</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-gray-400 uppercase font-semibold">Dig Depth</p>
+                <p class="text-sm font-bold text-brand">3.8 m</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-gray-400 uppercase font-semibold">Engine</p>
+                <p class="text-sm font-bold text-brand">Cat C2.4</p>
+              </div>
+              <div>
+                <p class="text-[10px] text-gray-400 uppercase font-semibold">Power</p>
+                <p class="text-sm font-bold text-brand">32.9 kW</p>
+              </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+              <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center"><i class="fa-solid fa-coins text-accent text-xs"></i></div>
+                  <span class="text-[10px] font-semibold text-green-600 bg-green-100 px-1.5 py-0.5 rounded">+12% vs last</span>
+                </div>
+                <p class="text-[10px] text-gray-400 uppercase font-semibold">Lifetime Earnings</p>
+                <p class="text-lg font-bold text-brand">₦ 85,000</p>
+              </div>
+              <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center"><i class="fa-solid fa-calendar-days text-brand text-xs"></i></div>
+                  <span class="text-[10px] font-medium text-gray-400">42 total rentals</span>
+                </div>
+                <p class="text-[10px] text-gray-400 uppercase font-semibold">Total Bookings</p>
+                <p class="text-lg font-bold text-brand">186 Days</p>
+              </div>
+              <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center"><i class="fa-solid fa-chart-line text-blue-500 text-xs"></i></div>
+                  <span class="text-[10px] font-medium text-gray-400">Efficiency</span>
+                </div>
+                <p class="text-[10px] text-gray-400 uppercase font-semibold">Utilization Rate</p>
+                <p class="text-lg font-bold text-brand">88.5%</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ======= RIGHT COLUMN ======= -->
+          <div class="w-[280px] shrink-0">
+
+            <!-- Current Renter -->
+            <div class="bg-white rounded-lg border border-gray-200 p-5 mb-4">
+              <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3">Current Renter</p>
+              <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mb-2">
+                  <img src="images/renter.png" alt="Renter" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                </div>
+                <p class="text-sm font-semibold text-gray-800">Donia Adedara</p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Aug 13 · Oct 6</p>
+                <div class="flex gap-0.5 mt-1 mb-3">
+                  <i class="fa-solid fa-star text-accent text-[10px]"></i><i class="fa-solid fa-star text-accent text-[10px]"></i><i class="fa-solid fa-star text-accent text-[10px]"></i><i class="fa-solid fa-star text-accent text-[10px]"></i><i class="fa-solid fa-star-half-stroke text-accent text-[10px]"></i>
+                </div>
+                <button class="w-full bg-brand hover:bg-[#0D234F] text-white text-xs font-semibold py-2.5 rounded-lg transition">Message Renter</button>
+              </div>
+            </div>
+
+            <!-- Daily Rate / Weekly Rate -->
+            <div class="bg-white rounded-lg border border-gray-200 p-4 mb-4">
+              <div class="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
+                <p class="text-[11px] text-gray-400">Daily Rate</p>
+                <p class="text-base font-bold text-brand">₦ 10,000.00</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-[11px] text-gray-400">Weekly Rate</p>
+                <p class="text-base font-bold text-brand">₦ 107,000.00</p>
+              </div>
+            </div>
+
+            <!-- Insurance Badge -->
+            <div class="bg-white rounded-lg border border-gray-200 p-4 mb-4 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-shield-halved text-green-600 text-sm"></i>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-gray-800">Full Shield Insurance</p>
+                <p class="text-[10px] text-gray-400">Coverage up to ₦150k included</p>
+              </div>
+            </div>
+
+            <!-- Maintenance Due (Red) -->
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+              <div class="flex items-center gap-2 mb-1">
+                <i class="fa-solid fa-triangle-exclamation text-red-500 text-sm"></i>
+                <p class="text-xs font-bold text-red-700">Maintenance Due</p>
+              </div>
+              <p class="text-[10px] text-red-500 leading-relaxed mb-2">
+                Hydraulic fluid check required in 12 service hours.
+              </p>
+              <a href="#" class="text-[11px] font-semibold text-red-700 hover:underline">Schedule Now</a>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-lg border border-gray-200 p-5">
+              <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Recent Activity</p>
+
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0 mt-0.5">
+                    <i class="fa-solid fa-clipboard-check text-green-600 text-xs"></i>
+                  </div>
+                  <div>
+                    <p class="text-[11px] font-semibold text-gray-700">Inspection Completed</p>
+                    <p class="text-[9px] text-gray-400">Oct 18, 2024 · Site Handover</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <i class="fa-solid fa-money-bill-wave text-accent text-xs"></i>
+                  </div>
+                  <div>
+                    <p class="text-[11px] font-semibold text-gray-700">Payout Processed</p>
+                    <p class="text-[9px] text-gray-400">Aug 15, 2026 · ₦15,000.00</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <i class="fa-solid fa-calendar-plus text-brand text-xs"></i>
+                  </div>
+                  <div>
+                    <p class="text-[11px] font-semibold text-gray-700">Booking Extended</p>
+                    <p class="text-[9px] text-gray-400">Aug 12, 2026 · Thorne Logistics</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============ FOOTER ============ -->
+      <footer class="bg-brand text-white pt-10 pb-6 mt-6">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div class="flex items-center gap-2 mb-2"><img src="images/logo.png" class="w-7" alt="TrustLend" onerror="this.style.display='none'" /><span class="font-bold text-base">Trust<span class="text-accent">Lend</span></span></div>
+              <p class="text-white/70 text-xs font-medium mb-2">Borrow with Confidence. Lend with Trust</p>
+              <p class="text-white/40 text-[11px] leading-relaxed">TrustLend is a secure marketplace connecting people and businesses to rent and lend equipment with confidence.</p>
+              <div class="flex gap-3 mt-4">
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+              </div>
+            </div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Quick Links</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">Browse Equipments</a></li><li><a href="#" class="hover:text-accent transition">List Your Equipments</a></li><li><a href="#" class="hover:text-accent transition">How It Works</a></li><li><a href="#" class="hover:text-accent transition">Trust & Safety</a></li><li><a href="#" class="hover:text-accent transition">Pricing</a></li></ul></div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Company</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">About</a></li><li><a href="#" class="hover:text-accent transition">Careers</a></li><li><a href="#" class="hover:text-accent transition">Blog</a></li><li><a href="#" class="hover:text-accent transition">Contact</a></li></ul></div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Support</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">Help Center</a></li><li><a href="#" class="hover:text-accent transition">FAQs</a></li><li><a href="#" class="hover:text-accent transition">Terms of Service</a></li><li><a href="#" class="hover:text-accent transition">Privacy Policy</a></li></ul></div>
+          </div>
+          <div class="border-t border-white/10 pt-5 text-center"><p class="text-[11px] text-white/40">© 2026 TrustLend Technologies Ltd. All rights reserved</p></div>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+</body>
+</html>
