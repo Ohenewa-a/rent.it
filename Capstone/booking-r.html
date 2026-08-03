@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLend - Bookings</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: '#132F6B',
+            brandLight: '#1A3D7D',
+            accent: '#F59E0B',
+            surface: '#F6F8FD',
+          },
+        },
+      },
+    }
+  </script>
+
+</head>
+<body>
+    <section class="flex flex-row">
+
+        <!-- SIDEBAR (same as Return Inspection, "Bookings" now active) -->
+        <div class="bg-brand flex flex-col shrink-0">
+            <div class="flex px-3 pb-2 pt-5 ml-6">
+                <img src="images/logo.png" alt="logo" class="w-8">
+                <h2 class="font-semibold text-2xl text-white">Trust<span class="text-[#e8a325]">Lend</span></h2>
+            </div>
+            <div class="h-px bg-slate-500 ml-6"></div>
+
+            <div class="flex mt-5 text-neutral-100 my-1 gap-6 text-sm font-['system-ui'] font-light">
+                <nav class="w-full ml-6 mr-5 text-xs">
+                    <p class="text-[#bdbdbd]">Manage</p>
+                    <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>Dashboard</a>
+
+                    <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>My Equipment</a>
+
+                    <a href="#" class="flex items-center my-2 h-8 pr-1 transition text-brand font-medium rounded-lg bg-[#C49A1A] justify-between">
+                        <span class="flex items-center"><span class="w-1 h-1 rounded-full bg-white inline-block mr-2"></span>Bookings</span>
+                        <span class="bg-brand text-white font-semibold w-5 h-5 rounded-full flex justify-center items-center mr-1">2</span>
+                    </a>
+
+                    <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>Return Inspection</a>
+
+                    <p class="text-[#bdbdbd] mt-2">Finance</p>
+                    <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>Wallet</a>
+
+                    <p class="text-[#bdbdbd] mt-2">Account</p>
+                    <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>Profile</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="flex flex-col flex-1 min-w-0 min-h-screen bg-blue-100/20">
+
+            <!-- HEADER (same pattern as Return Inspection) -->
+            <header class="flex flex-row justify-between items-center bg-white w-full text-sm rounded-2xl">
+                <div class="flex flex-col px-8 py-4">
+                    <h3 class="font-bold text-[#1a1a1a]">Bookings</h3>
+                    <p class="text-sm text-[#1a1a1a]">View and manage your bookings</p>
+                </div>
+                <div class="flex flex-row px-8 py-4 gap-3 items-center">
+                    <input type="text" class="rounded-2xl border w-76 h-10 px-4 py-3" placeholder="Search">
+
+                    <button class="hover:text-slate-600 text-black relative">
+                        <i class="fa-regular fa-bell fa-2x"></i>
+                        <span class="absolute bg-red-500 text-white rounded-full flex items-center justify-center w-3.5 h-3.5 top-2.5 left-4 text-xs">5</span>
+                    </button>
+
+                    <div class="w-8 h-8 overflow-hidden rounded-full">
+                        <img src="images/woman-profile.png" alt="profile picture" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT -->
+            <main class="flex flex-col flex-1 min-w-0 p-4">
+
+                <!-- STATS ROW -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-white rounded-2xl p-4">
+                        <p class="text-slate-500 text-xs">PENDING INQUIRIES</p>
+                        <h2 class="font-bold text-2xl text-brand">12</h2>
+                        <p class="text-slate-400 text-xs">+4 since yesterday</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4">
+                        <p class="text-slate-500 text-xs">POTENTIAL EARNINGS</p>
+                        <h2 class="font-bold text-2xl text-brand">₦250,000</h2>
+                        <p class="text-slate-400 text-xs">Projected revenue</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4">
+                        <p class="text-slate-500 text-xs">AVG RESPONSE TIME</p>
+                        <h2 class="font-bold text-2xl text-brand">42m</h2>
+                        <p class="text-slate-400 text-xs">Top 5% of Owners</p>
+                    </div>
+                </div>
+
+                <!-- FILTER / SORT -->
+                <div class="flex flex-row gap-3 mt-4">
+                    <a href="filter.html" class="border px-4 py-2 rounded-2xl text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-sliders"></i> Filter
+                    </a>
+                    <button class="border px-4 py-2 rounded-2xl text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-down-wide-short"></i> Sort by Newest
+                    </button>
+                </div>
+
+                <!-- ACTIVE REQUESTS -->
+                <div class="mt-6">
+                    <h3 class="font-bold text-lg text-brand">Active Requests</h3>
+                    <p class="text-slate-500 text-sm">Action required for equipment scheduling</p>
+                </div>
+
+                <div id="requestsList">
+
+                    <!-- REQUEST CARD 1 -->
+                    <div class="request-card bg-white rounded-2xl p-4 mt-4 flex flex-row items-center gap-4">
+                        <img src="images/camera-1.png" alt="equipment" class="w-24 h-24 object-cover rounded-xl">
+
+                        <div class="flex-1">
+                            <div class="flex flex-row items-center gap-2">
+                                <img src="images/user-1.png" alt="renter" class="w-8 h-8 rounded-full object-cover">
+                                <div>
+                                    <p class="font-semibold text-sm">Ngozie Victory</p>
+                                    <p class="text-xs text-slate-400">Agriproneur</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Listing ID: RIA-1600</p>
+                        </div>
+
+                        <div class="text-sm">
+                            <p class="text-slate-500 text-xs">RENTAL PERIOD</p>
+                            <p class="font-medium">Oct 12 - Oct 16, 2024</p>
+                        </div>
+
+                        <div class="text-sm">
+                            <p class="text-slate-500 text-xs">POTENTIAL EARNINGS</p>
+                            <p class="font-medium">₦54,000</p>
+                            <p class="text-xs text-slate-400">Includes rental deposit</p>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <p class="status-text text-xs font-semibold text-center hidden"></p>
+                            <button onclick="handleApprove(this)" class="approve-btn bg-brand text-white px-4 py-2 rounded-2xl text-sm">Approve</button>
+                            <button onclick="handleDecline(this)" class="decline-btn bg-accent text-white px-4 py-2 rounded-2xl text-sm">Decline</button>
+                            <button class="border px-4 py-2 rounded-2xl text-sm flex items-center gap-1">
+                                <i class="fa-regular fa-message"></i> Message the renter
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- REQUEST CARD 2 -->
+                    <div class="request-card bg-white rounded-2xl p-4 mt-4 flex flex-row items-center gap-4">
+                        <img src="images/camera-2.png" alt="equipment" class="w-24 h-24 object-cover rounded-xl">
+
+                        <div class="flex-1">
+                            <div class="flex flex-row items-center gap-2">
+                                <img src="images/user-2.png" alt="renter" class="w-8 h-8 rounded-full object-cover">
+                                <div>
+                                    <p class="font-semibold text-sm">Dunni Ademide</p>
+                                    <p class="text-xs text-slate-400">Top-Rated Renter</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Listing ID: RIA-4402</p>
+                        </div>
+
+                        <div class="text-sm">
+                            <p class="text-slate-500 text-xs">RENTAL PERIOD</p>
+                            <p class="font-medium">Oct 15 - Oct 19, 2024</p>
+                        </div>
+
+                        <div class="text-sm">
+                            <p class="text-slate-500 text-xs">POTENTIAL EARNINGS</p>
+                            <p class="font-medium">₦84,000</p>
+                            <p class="text-xs text-slate-400">Prime weekend rate</p>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <p class="status-text text-xs font-semibold text-center hidden"></p>
+                            <button onclick="handleApprove(this)" class="approve-btn bg-brand text-white px-4 py-2 rounded-2xl text-sm">Approve</button>
+                            <button onclick="handleDecline(this)" class="decline-btn bg-accent text-white px-4 py-2 rounded-2xl text-sm">Decline</button>
+                            <button class="border px-4 py-2 rounded-2xl text-sm flex items-center gap-1">
+                                <i class="fa-regular fa-message"></i> Message the renter
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- REQUEST CARD 3 -->
+                    <div class="request-card bg-white rounded-2xl p-4 mt-4 flex flex-row items-center gap-4">
+                        <img src="images/camera-3.png" alt="equipment" class="w-24 h-24 object-cover rounded-xl">
+
+                        <div class="flex-1">
+                            <div class="flex flex-row items-center gap-2">
+                                <img src="images/user-3.png" alt="renter" class="w-8 h-8 rounded-full object-cover">
+                                <div>
+                                    <p class="font-semibold text-sm">David Adeniyi</p>
+                                    <p class="text-xs text-slate-400">Corporate Account</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Listing ID: PIX-2211</p>
+                        </div>
+
+                        <div class="text-sm">
+                            <p class="text-slate-500 text-xs">RENTAL PERIOD</p>
+                            <p class="font-medium">Oct 20 - Nov 05, 2024</p>
+                        </div>
+
+                        <div class="text-sm">
+                            <p class="text-slate-500 text-xs">POTENTIAL EARNINGS</p>
+                            <p class="font-medium">₦75,000</p>
+                            <p class="text-xs text-slate-400">Long-term rental</p>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <p class="status-text text-xs font-semibold text-center hidden"></p>
+                            <button onclick="handleApprove(this)" class="approve-btn bg-brand text-white px-4 py-2 rounded-2xl text-sm">Approve</button>
+                            <button onclick="handleDecline(this)" class="decline-btn bg-accent text-white px-4 py-2 rounded-2xl text-sm">Decline</button>
+                            <button class="border px-4 py-2 rounded-2xl text-sm flex items-center gap-1">
+                                <i class="fa-regular fa-message"></i> Message the renter
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ID VERIFICATION BANNER -->
+                <div class="bg-[#3B4A2E] text-white rounded-2xl p-4 mt-6 flex flex-row items-center justify-between">
+                    <div class="flex flex-row items-center gap-3">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                        <div>
+                            <p class="font-semibold">Automated ID Verification is Live</p>
+                            <p class="text-xs text-slate-300">All renters have been auto-verified for improved trust and safety. Report anything suspicious and we'll investigate.</p>
+                        </div>
+                    </div>
+                    <button class="bg-brand px-4 py-2 rounded-2xl text-sm shrink-0">View Details</button>
+                </div>
+
+            </main>
+
+        </div>
+
+    </section>
+
+    <footer class="bg-brand text-white pt-10 pb-6 mt-6 -mx-6 -mb-6 px-6">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div class="flex items-center gap-2 mb-2"><img src="images/logo.png" class="w-7" alt="TrustLend" onerror="this.style.display='none'" /><span class="font-bold text-base">Trust<span class="text-accent">Lend</span></span></div>
+              <p class="text-white/70 text-xs font-medium mb-2">Borrow with Confidence. Lend with Trust</p>
+              <p class="text-white/40 text-[11px] leading-relaxed">TrustLend is a secure marketplace connecting people and businesses to rent and lend equipment with confidence.</p>
+              <div class="flex gap-3 mt-4">
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+              </div>
+            </div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Quick Links</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">Browse Equipments</a></li><li><a href="#" class="hover:text-accent transition">List Your Equipments</a></li><li><a href="#" class="hover:text-accent transition">How It Works</a></li><li><a href="#" class="hover:text-accent transition">Trust & Safety</a></li><li><a href="#" class="hover:text-accent transition">Pricing</a></li></ul></div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Company</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">About</a></li><li><a href="#" class="hover:text-accent transition">Careers</a></li><li><a href="#" class="hover:text-accent transition">Blog</a></li><li><a href="#" class="hover:text-accent transition">Contact</a></li></ul></div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Support</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">Help Center</a></li><li><a href="#" class="hover:text-accent transition">FAQs</a></li><li><a href="#" class="hover:text-accent transition">Terms of Service</a></li><li><a href="#" class="hover:text-accent transition">Privacy Policy</a></li></ul></div>
+          </div>
+          <div class="border-t border-white/10 pt-5 text-center"><p class="text-[11px] text-white/40">© 2026 TrustLend Technologies Ltd. All rights reserved</p></div>
+        </div>
+      </footer>
+
+
+    <script>
+        
+        function handleApprove(button) {
+            
+            const card = button.closest('.request-card');
+
+            
+            card.querySelector('.approve-btn').classList.add('hidden');
+            card.querySelector('.decline-btn').classList.add('hidden');
+
+            
+            const status = card.querySelector('.status-text');
+            status.textContent = 'Approved ✓';
+            status.classList.remove('hidden', 'text-red-500');
+            status.classList.add('text-brand');
+        }
+
+        
+        function handleDecline(button) {
+            const card = button.closest('.request-card');
+
+            card.querySelector('.approve-btn').classList.add('hidden');
+            card.querySelector('.decline-btn').classList.add('hidden');
+
+            const status = card.querySelector('.status-text');
+            status.textContent = 'Declined';
+            status.classList.remove('hidden', 'text-brand');
+            status.classList.add('text-red-500');
+        }
+    </script>
+
+</body>
+</html>
