@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustLend - Search Results</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: { brand: '#132F6B', brandLight: '#1A3D7D', accent: '#F59E0B', surface: '#F6F8FD' },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface">
+
+    <!-- TOP NAV (this page uses a simple top bar, not the sidebar preset, matching the design) -->
+    <header class="flex flex-row justify-between items-center bg-white px-6 py-4">
+        <h2 class="font-semibold text-2xl text-brand">Trust<span class="text-accent">Lend</span></h2>
+
+        <div class="flex-1 max-w-xl mx-6 flex flex-row items-center gap-2">
+            <input type="text" value="Camera" class="flex-1 rounded-2xl border px-4 py-2">
+            <button class="bg-brand text-white px-4 py-2 rounded-2xl text-sm">Search</button>
+        </div>
+
+        <div class="flex flex-row items-center gap-4">
+            <button class="relative">
+                <i class="fa-regular fa-bell fa-lg"></i>
+                <span class="absolute bg-red-500 text-white rounded-full flex items-center justify-center w-3.5 h-3.5 -top-1 -right-1 text-xs">3</span>
+            </button>
+            <div class="w-8 h-8 rounded-full overflow-hidden">
+                <img src="images/profile.png" alt="profile" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col lg:flex-row p-4 gap-4">
+
+        <!-- FILTERS SIDEBAR -->
+        <aside class="w-full lg:w-64 shrink-0 bg-white rounded-2xl p-4 h-fit">
+            <div class="flex flex-row justify-between items-center mb-3">
+                <h3 class="font-semibold">Filters</h3>
+                <a href="#" class="text-xs text-slate-400">Reset</a>
+            </div>
+
+            <p class="text-sm font-medium mb-2">Category</p>
+            <label class="flex items-center gap-2 mb-1 text-sm"><input type="checkbox" checked> Camera</label>
+            <label class="flex items-center gap-2 mb-1 text-sm"><input type="checkbox"> Lens</label>
+            <label class="flex items-center gap-2 mb-1 text-sm"><input type="checkbox"> Lighting</label>
+            <label class="flex items-center gap-2 mb-1 text-sm"><input type="checkbox"> Audio</label>
+            <label class="flex items-center gap-2 mb-1 text-sm"><input type="checkbox"> Decoration</label>
+            <label class="flex items-center gap-2 mb-3 text-sm"><input type="checkbox"> More</label>
+
+            <p class="text-sm font-medium mb-2">Location</p>
+            <input type="text" placeholder="e.g Lagos" class="w-full rounded-2xl border px-3 py-2 text-sm mb-3">
+
+            <p class="text-sm font-medium mb-2">Price range</p>
+            <input type="range" min="5000" max="100000" class="w-full mb-1">
+            <div class="flex flex-row justify-between text-xs text-slate-400 mb-3">
+                <span>₦5,000</span><span>₦100,000+</span>
+            </div>
+
+            <p class="text-sm font-medium mb-2">Availability</p>
+            <label class="flex items-center gap-2 mb-1 text-sm"><input type="checkbox"> Readily available</label>
+            <label class="flex items-center gap-2 mb-3 text-sm"><input type="checkbox" checked> Available on schedule</label>
+
+            <p class="text-sm font-medium mb-2">Vendor rating</p>
+            <div class="flex flex-row gap-2 mb-4 text-xs">
+                <button class="border px-3 py-1 rounded-2xl">5★</button>
+                <button class="border px-3 py-1 rounded-2xl">4+★</button>
+                <button class="border px-3 py-1 rounded-2xl">3+★</button>
+            </div>
+
+            <button class="bg-brand text-white w-full py-2 rounded-2xl text-sm">Apply Filters</button>
+        </aside>
+
+        <!-- RESULTS GRID -->
+        <main class="flex-1">
+            <p class="text-sm text-slate-500 mb-3">200 products found</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/sony-fx3.png" alt="Sony FX3" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Sony FX3</p>
+                    <p class="text-xs text-slate-400">Lagos</p>
+                    <p class="text-sm font-semibold">₦65,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/sony-alpha-a7.png" alt="Sony Alpha A7" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Sony Alpha A7</p>
+                    <p class="text-xs text-slate-400">Kano</p>
+                    <p class="text-sm font-semibold">₦75,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/nikon-d5100.png" alt="Nikon D5100" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Nikon D5100</p>
+                    <p class="text-xs text-slate-400">Abuja</p>
+                    <p class="text-sm font-semibold">₦50,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/canon.png" alt="Canon EOS R50" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Canon EOS R50</p>
+                    <p class="text-xs text-slate-400">Asaba</p>
+                    <p class="text-sm font-semibold">₦45,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/insta360.png" alt="Insta 360" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Insta 360</p>
+                    <p class="text-xs text-slate-400">Kano</p>
+                    <p class="text-sm font-semibold">₦45,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/nikon-dslr.png" alt="Nikon DSLR" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Nikon DSLR</p>
+                    <p class="text-xs text-slate-400">Lagos</p>
+                    <p class="text-sm font-semibold">₦40,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/canon-g67.png" alt="Canon G67" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Canon G67</p>
+                    <p class="text-xs text-slate-400">Ikeja</p>
+                    <p class="text-sm font-semibold">₦75,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/canon-eos-rebel.png" alt="Canon EOS Rebel" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Canon EOS Rebel</p>
+                    <p class="text-xs text-slate-400">Abia</p>
+                    <p class="text-sm font-semibold">₦75,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/sony-dsc-h50.png" alt="Sony DSC-H50" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Sony DSC-H50</p>
+                    <p class="text-xs text-slate-400">Douglas</p>
+                    <p class="text-sm font-semibold">₦65,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/sony-dsc-h320.png" alt="Sony DSC-H320" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Sony DSC-H320</p>
+                    <p class="text-xs text-slate-400">Delta</p>
+                    <p class="text-sm font-semibold">₦65,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/sony-a7.png" alt="Sony A7" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Sony A7</p>
+                    <p class="text-xs text-slate-400">Osun</p>
+                    <p class="text-sm font-semibold">₦45,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-2">
+                    <img src="images/sony-zv1.png" alt="Sony ZV-1" class="w-full h-32 object-cover rounded-xl">
+                    <p class="font-medium text-sm mt-2">Sony ZV-1</p>
+                    <p class="text-xs text-slate-400">Lagos</p>
+                    <p class="text-sm font-semibold">₦25,000/day</p>
+                    <p class="text-xs text-amber-500">★★★★</p>
+                </div>
+
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="flex flex-row justify-center gap-2 mt-6 text-sm">
+                <button class="w-8 h-8 rounded-full bg-brand text-white">1</button>
+                <button class="w-8 h-8 rounded-full text-slate-500">2</button>
+                <button class="w-8 h-8 rounded-full text-slate-500">3</button>
+                <button class="w-8 h-8 rounded-full text-slate-500">4</button>
+                <button class="w-8 h-8 rounded-full text-slate-500">5</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

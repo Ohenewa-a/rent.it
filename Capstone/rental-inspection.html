@@ -43,6 +43,7 @@
 </head>
 <body>           
     <section class="flex flex-row ">
+        <!-- nav bar -->
         <div class="bg-brand flex flex-col shrink-0">
             <div class="flex px-3 pb-2 pt-5 ml-6">
                 <img src="images/logo.png" alt="logo" class="w-8">
@@ -54,7 +55,7 @@
                 <nav class="w-full ml-6 mr-5 text-xs">
                     <!-- manage-->
                     <p class="text-[#bdbdbd]">Manage</p>     
-                    <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg  hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>Dashboard</a>
+                    <a href="#" class="block flex items-center my-2 h-8 hover:bg-[#e8a325] pr-1 rounded-lg  hover:font-medium hover:text-[#] transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>Dashboard</a>
 
                     <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>My Equipment</a>
 
@@ -65,7 +66,7 @@
                         <span class="bg-brand text-white font-semibold w-5 h-5 rounded-full flex justify-center items-center bg-maintYellow">2</span>
                     </a>
 
-                    <a href="#" class=" flex items-center my-2 h-8 pr-1 transition text-brand font-medium rounded-lg bg-maintYellow">
+                    <a href="#" class=" flex items-center my-2 h-8 pr-1 transition text-brand font-medium rounded-lg bg-accent">
                         <span class=" w-1 h-1 rounded-full bg-white inline-block mr-2 text-[#000000]"></span>Rental Inspection</a>
 
                     <!-- finance inspection -->
@@ -88,6 +89,7 @@
                         <span class="bg-brand text-white font-semibold w-5 h-5 rounded-full flex justify-center items-center bg-maintYellow">5</span>
                     </a>
 
+                    <!-- account -->
                     <p class="text-[#bdbdbd]">Account</p>     
                     <a href="#" class="block flex items-center my-2 h-8 hover:bg-white/10 pr-1 rounded-lg hover:font-medium hover:text-white transition"> <span class="w-1 h-1 rounded-full bg-[#e0e0e0] mr-2"></span>Profile</a>
 
@@ -102,7 +104,7 @@
         <!-- maincontent -->
          <div class="flex flex-col flex-1 min-w-0 min-h-screen bg-blue-100/20">
 
-            <!-- HEADER: now spans the FULL remaining width, above both main and aside -->
+            <!-- header -->
             <header class="flex flex-row justify-between items-center bg-white w-full text-sm rounded-2xl">
                 <div class="flex flex-col px-8 py-4">
                     <h3 class="font-bold text-[#1a1a1a]">Return Inspection</h3>
@@ -113,7 +115,7 @@
 
                     <button class=" hover:text-slate-600 text-black relative">
                         <i class="fa-regular fa-bell fa-2x"></i>
-                        <span class="absolute bg-red-500 text-white rounded-full flex items-center justify-center w-3.5 h-3.5 top-2.5 left-4 text-xs">5</span>
+                        <span class="absolute bg-red-500 text-white rounded-full flex items-center justify-center w-3.5 h-3.5 -top-1 -right-1 text-xs">5</span>
                     </button>
 
                     <div class="w-8 h-8 overflow-hidden rounded-full">
@@ -122,12 +124,12 @@
                 </div>
             </header>
 
-            <!-- ROW BELOW HEADER: main content (grows) + aside (fixed width) -->
+        
             <div class="flex flex-row flex-1">
-
-                <!-- MAIN -->
+                <!-- MAIN--->
                 <main class="flex flex-col flex-1 min-w-0">
 
+                    <!-- returned today -->
                     <div class="flex flex-row bg-white mx-4 px-4 my-2 items-center rounded-2xl">
                         <div>
                             <img src="images/canon.png" alt="">
@@ -138,8 +140,6 @@
                                     <div class="flex flex-row justify-between pr-1 "><h3 class="font-bold ">Canon EOS R50</h3>
                                     <p class="border border-blue-[#A0C2F8] bg-blue-200 rounded-3xl font-light text-slate-600 py-0.5 px-2 ">Returned · Today</p></div>
                                     <p class="text-xs font-light">Digital Camera</p>
-
-
 
                                 <div class="grid grid-cols-4 pt-2 gap-8">
                                     <div>
@@ -164,10 +164,7 @@
                                 </div>
                                 </div>
 
-
-
-
-
+                                <!-- renter profile -->
                                 <div class=" ml-10  w-0.5 h-36 bg-slate-200 rounded-2xl"></div>
 
                                 <div class="flex-col flex px-8  pb-9 rounded-2xl">
@@ -202,6 +199,7 @@
 
                     </div>
 
+                    <!-- condition -->
                     <div class="mx-4 px-4 py-4 my-4 bg-white text-sm rounded-2xl">
                         <h3 class="font-semibold tracking-widest text-brand py-2">Condition Checklist</h3>
                         <div class="grid grid-cols-2 gap-y-4 gap-x-6 px-1 ">
@@ -212,7 +210,7 @@
 
                             <label class="flex items-center gap-4">
                                 <input type="checkbox" class="rounded border-text-slate-300">
-                                <span>lens/glass surface</span>
+                                <span>Lens / glass surfaces clean</span>
                             </label>
 
                             <label class="flex items-center gap-4">
@@ -249,6 +247,7 @@
                         </div>
                     </div>
 
+                    <!-- photo evidence -->
                     <div class="mx-4 px-4 my-6 bg-white flex flex-col rounded-2xl">
                         <h3 class="font-semibold tracking-widest text-brand py-2">PHOTOS EVIDENCE</h3>
                         <div class="flex flex-row gap-2 ">
@@ -279,7 +278,7 @@
 
                 </main>
 
-                <!-- ASIDE -->
+                <!-- overall condition -->
                 <aside class="w-[280px] shrink-0">
                     <div class="mx-4 px-4 py-2 my-2 bg-white flex flex-col rounded-2xl">
                         <h3 class="font-semibold tracking-widest text-brand py-2">Overall Condition</h3>
@@ -310,23 +309,24 @@
 
                     </div>
 
+                    <!-- security deposit -->
                     <div class="mx-4 px-4 my-6 bg-white flex flex-col rounded-2xl">
                         <h3 class="font-semibold tracking-widest text-brand py-2">SECURITY DEPOSIT</h3>
                         <div>
                             <div class="flex flex-row justify-between my-2">
                                 <p class="text-sm text-slate-500">Held amount</p>
-                                <p class="font-bold text-sm">XXXX NGN</p>
+                                <p class="font-bold text-sm text-brand">XXXX NGN</p>
                             </div>
 
 
                             <div class="flex flex-row justify-between my-2">
                                 <p class="text-sm text-slate-500">Status</p>
-                                <p class="font-bold text-sm">Pending release</p>
+                                <p class="font-bold text-sm text-brand">Pending release</p>
                             </div>
 
                             <div class="flex flex-row justify-between my-2">
                                 <p class="text-sm text-slate-500">Release date</p>
-                                <p class="font-bold text-sm">In 48 hrs</p>
+                                <p class="font-bold text-sm text-brand">In 48 hrs</p>
                             </div>
                             <div class="w-6 h-px text-slate-300"></div>
 
@@ -334,19 +334,20 @@
                         </div>
                     </div>
 
+                        <!-- actvity log -->
                         <div class="mr-4 ml-2 px-2 my-2  bg-white flex   flex-col rounded-2xl">
                             <h3 class="font-semibold tracking-widest text-brand py-2">ACTIVITY LOG</h3>
 
-                            <div class="flex flex-row items-center">
+                            <div class="flex flex-row items-center relative">
                                 <span class="w-1.5 h-1.5 rounded-full bg-[#e0e0e0] mb-5 mr-2"></span>
-                                <div class="flex flex-col pr-1 rounded-lg py-2 ">
+                                <div class="flex flex-col pr-1 rounded-lg py-2  ">
                                     <p class="text-xs" >Renter initiated return</p>
                                     <p class="text-[#bdbdbd]  text-xs">Jul 22 · 10:04</p> 
                                 </div>
                             </div>
                                 
 
-                            <div class="flex flex row items-center py-2  ">
+                            <div class="flex flex row items-center py-2 relative ">
                                 <span class="w-1.5 h-1.5 rounded-full bg-[#e0e0e0] mb-5 mr-2"></span>
                                 <div class="flex flex-col ">
                                     <p class="text-xs">Renter submitted photos</p>
@@ -354,7 +355,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-row items-center py-2">
+                            <div class="flex flex-row items-center py-2 relative">
                                 <span class="w-1.5 h-1.5 rounded-full bg-[#e0e0e0] mb-5 mr-2"></span>
                                 <div class="flex flex-col pr-1 rounded-lg  ">
                                     <p class="text-xs" >Item picked up</p>
@@ -362,31 +363,45 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-row items-center py-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-[#e0e0e0] mb-5 mr-2"></span>
+                            <div class="flex flex-row items-center py-2 relative">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#e0e0e0] mb-5 mr-2 "></span>
                                 <div class="flex flex-col pr-1 rounded-lg  ">
                                     <p class="text-xs" >Rental confirmed</p>
                                     <p class="text-[#bdbdbd]  text-xs">Jul 17 · 14:00</p> 
                                 </div>
                             </div>
-                                    
-                                
-                            
-
-
-
-                        
                         </div>
-                      
                     </div>
                 </aside>
-
             </div>
-
         </div>
 
     </section>
 
+    <!-- Footer -->
+      <footer class="bg-brand text-white pt-10 pb-6  pl-12 mt-6 -mx-6 -mb-6 px-6">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div class="flex items-center gap-2 mb-2"><img src="images/logo.png" class="w-7" alt="TrustLend" onerror="this.style.display='none'" /><span class="font-bold text-base">Trust<span class="text-accent">Lend</span></span></div>
+              <p class="text-white/70 text-xs font-medium mb-2">Borrow with Confidence. Lend with Trust</p>
+              <p class="text-white/40 text-[11px] leading-relaxed">TrustLend is a secure marketplace connecting people and businesses to rent and lend equipment with confidence.</p>
+              <div class="flex gap-3 mt-4">
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fab fa-instagram "></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fab fa-x-twitter "></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fab fa-facebook-f "></i></a>
+                <a href="#" class="text-white/50 hover:text-accent transition"><i class="fab fa-linkedin-in "></i></a>
+              </div>
+            </div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Quick Links</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">Browse Equipments</a></li><li><a href="#" class="hover:text-accent transition">List Your Equipments</a></li><li><a href="#" class="hover:text-accent transition">How It Works</a></li><li><a href="#" class="hover:text-accent transition">Trust & Safety</a></li><li><a href="#" class="hover:text-accent transition">Pricing</a></li></ul></div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Company</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">About</a></li><li><a href="#" class="hover:text-accent transition">Careers</a></li><li><a href="#" class="hover:text-accent transition">Blog</a></li><li><a href="#" class="hover:text-accent transition">Contact</a></li></ul></div>
+            <div><h4 class="font-semibold text-xs uppercase tracking-wider mb-3">Support</h4><ul class="space-y-2 text-[11px] text-white/60"><li><a href="#" class="hover:text-accent transition">Help Center</a></li><li><a href="#" class="hover:text-accent transition">FAQs</a></li><li><a href="#" class="hover:text-accent transition">Terms of Service</a></li><li><a href="#" class="hover:text-accent transition">Privacy Policy</a></li></ul></div>
+          </div>
+          <div class="border-t border-white/10 pt-5 text-center"><p class="text-[11px] text-white/40">© 2026 TrustLend Technologies Ltd. All rights reserved</p></div>
+        </div>
+      </footer>
+
+    
 </body>
 </html>
 
