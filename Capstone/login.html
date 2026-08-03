@@ -9,20 +9,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        body{
-            background:#f5f7fb;
+        body {
+            background: #f5f7fb;
         }
 
-        .card:hover{
+        .card:hover {
             transform: translateY(-5px);
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center p-4">
 
-<div class=">
-
-    <div class="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div class="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden relative">
 
         <!-- Banner -->
         <div>
@@ -157,26 +155,11 @@
 
     </div>
 
-</div>
-
 <script>
-
-function loginRole(role){
-
+function loginRole(role) {
     localStorage.setItem("role", role);
-
-    // Replace with your actual login pages
-    if(role === "renter"){
-        alert("Proceed to Renter Login");
-        // window.location.href = "renter-login.html";
-    }
-    else{
-        alert("Proceed to Owner Login");
-        // window.location.href = "owner-login.html";
-    }
-
+    window.location.href = `auth.html?role=${role}`;
 }
-
 </script>
 
 </body>

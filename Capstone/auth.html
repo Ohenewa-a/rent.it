@@ -8,7 +8,6 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
- 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -237,7 +236,6 @@
     let currentMode = 'signup';
 
     // ── Side Image Paths ─────────────────────
-    // Update these filenames to match your actual image files
     const sideImages = {
       signup: 'images/signup(renter & owner).png',
       login:  'images/login(renter & owner).png',
@@ -289,7 +287,6 @@
       const pageTitle    = document.getElementById('pageTitle');
       const bottomLink   = document.getElementById('bottomLink');
 
-      // Toggle required on hidden fields so they don't block submission
       const signupInputs = [
         ...signupFields.querySelectorAll('input'),
         ...phoneField.querySelectorAll('input'),
@@ -300,17 +297,14 @@
       if (currentMode === 'signup') {
         currentMode = 'login';
 
-        // Hide signup-only fields
         signupFields.classList.add('hidden');
         phoneField.classList.add('hidden');
         confirmField.classList.add('hidden');
         termsField.classList.add('hidden');
 
-        // Show login-only fields
         forgotField.classList.remove('hidden');
         socialLogin.classList.remove('hidden');
 
-        // Disable required on hidden inputs
         signupInputs.forEach(input => input.removeAttribute('required'));
 
         submitBtn.textContent = 'Login';
@@ -322,24 +316,21 @@
       } else {
         currentMode = 'signup';
 
-        // Show signup fields
         signupFields.classList.remove('hidden');
         phoneField.classList.remove('hidden');
         confirmField.classList.remove('hidden');
         termsField.classList.remove('hidden');
 
-        // Hide login-only fields
         forgotField.classList.add('hidden');
         socialLogin.classList.add('hidden');
 
-        // Re-enable required
         signupInputs.forEach(input => input.setAttribute('required', ''));
 
         submitBtn.textContent = 'Create Account';
         pageTitle.textContent = currentRole === 'renter' ? 'Sign up as a' : 'Sign up as an';
 
         bottomLink.innerHTML =
-          'Already have an account? <a href="#" onclick="switchMode()" class="text-accent font-semibold hover:underline">Log in</a>';
+          'Already have an account? <a href="o-dashboard.html" onclick="switchMode()" class="text-accent font-semibold hover:underline">Log in</a>';
       }
 
       updateSideImage();
@@ -371,7 +362,9 @@
           alert('Passwords do not match.');
           return;
         }
-        alert('Account created as ' + currentRole.toUpperCase() + '!');
+
+        // Redirect directly to login.html after validation
+        window.location.href = 'login.html';
       } else {
         alert('Logging in as ' + currentRole.toUpperCase() + '!');
       }

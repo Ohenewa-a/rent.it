@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrustLend - Return Inspection</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0B1B3D',
+              navy: '#0B2545',
+              gold: '#E5A93C',
+              goldHover: '#D4982B',
+              bg: '#F8FAFC'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-brand-bg font-sans text-gray-800 antialiased min-h-screen flex flex-col">
+
+  <!-- Main Container -->
+  <div class="flex-1 flex flex-col lg:flex-row relative">
+
+    <!-- Mobile Top Navbar Header -->
+    <header class="lg:hidden bg-brand-dark text-white px-4 py-3 flex items-center justify-between sticky top-0 z-30 shadow-md">
+      <div class="flex items-center space-x-2">
+        <div class="w-7 h-7 rounded-full border-2 border-white/80 flex items-center justify-center">
+          <div class="w-3 h-3 bg-white rounded-full"></div>
+        </div>
+        <span class="font-bold text-xl tracking-tight text-white">Trust<span class="text-brand-gold">Lend</span></span>
+      </div>
+      <!-- Sidebar Toggle Button -->
+      <button id="sidebar-toggle" class="p-2 rounded-md hover:bg-slate-800 text-gray-200 focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </header>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden transition-opacity duration-300"></div>
+
+    <!-- Left Sidebar Navigation -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-brand-dark text-gray-300 flex flex-col transform -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 ease-in-out shrink-0">
+      
+      <!-- Brand Logo Header -->
+      <div class="px-6 py-6 flex items-center justify-between border-b border-slate-800/60">
+        <div class="flex items-center space-x-2.5">
+          <div class="flex items-center justify-center">
+            <div>
+              <img src="images/SVG 2.png" alt="logo">
+            </div>
+          </div>
+          <span class="font-bold text-2xl tracking-tight text-white">Trust<span class="text-brand-gold">Lend</span></span>
+        </div>
+        <button id="sidebar-close" class="lg:hidden text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Main Navigation Links -->
+      <nav class="flex-1 px-4 py-6 space-y-2">
+      <!--Dashboard -->
+      <a href="a-dashboard.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-300 hover:text-[#0B2545] hover:bg-amber-500 transition">
+        <div class="flex items-center space-x-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Dispute Management -->
+      <a href="admin_dispute_management.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-300 hover:text-[#0B2545] hover:bg-amber-500 transition">
+        <span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+        <span>Dispute Management</span>
+      </a>
+
+      <!-- Bookings -->
+      <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-slate-300 hover:text-[#0B2545] hover:bg-amber-500 transition">
+        <span class="flex items-center gap-2.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+          Bookings
+        </span>
+        <span class="bg-amber-400 text-[#0B2545] text-[10px] font-extrabold px-1.5 py-0.5 rounded-full">12</span>
+      </a>
+
+
+      <!-- Return Inspection -->
+      <a href="rental-insp.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-300 hover:text-[#0B2545] hover:bg-amber-500 transition">
+        <span class="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+        <span>Return Inspection</span>
+      </a>
+    </nav>
+    </aside>
+
+    <!-- Content Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- Header Bar -->
+      <header class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-lg font-bold text-brand-navy">Return Inspection</h1>
+          <p class="text-xs text-slate-400">Review the returned item and confirm its condition</p>
+        </div>
+
+        <div class="flex items-center gap-4 self-end sm:self-auto">
+          <!-- Search Bar -->
+          <div class="relative w-48 sm:w-64">
+            <input 
+              type="text" 
+              placeholder="Search" 
+              class="w-full bg-slate-50 text-xs text-slate-800 placeholder-slate-400 pl-4 pr-9 py-2 rounded-full border border-slate-200 focus:outline-none focus:border-brand-navy"
+            />
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2"></i>
+          </div>
+
+          <!-- Notification Bell -->
+          <button class="relative p-2 text-slate-600 hover:bg-slate-100 rounded-full transition">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+
+          <!-- User Avatar -->
+          <div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200 flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Profile" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Inspection Canvas -->
+      <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto">
+
+        <!-- ITEM & RENTER OVERVIEW CARD -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          
+          <!-- Item Details -->
+          <div class="flex items-start sm:items-center gap-4">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=300&q=80" alt="Canon EOS R50" class="w-20 h-20 rounded-lg object-cover bg-slate-100 flex-shrink-0 border border-slate-100" />
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <h2 class="text-sm font-bold text-brand-navy">Canon EOS R50</h2>
+                <span class="bg-blue-50 text-blue-600 text-[10px] font-medium px-2 py-0.5 rounded-full border border-blue-100">Returned · Today</span>
+              </div>
+              <p class="text-xs text-slate-400 font-medium">Digital Camera</p>
+              
+              <div class="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2 text-[11px] text-slate-600">
+                <div>
+                  <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Rental ID</span>
+                  <span class="font-bold text-brand-navy">#A-1042</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Duration</span>
+                  <span class="font-bold text-brand-navy">4 days</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Picked up</span>
+                  <span class="font-bold text-brand-navy">Jul 18</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Returned</span>
+                  <span class="font-bold text-brand-navy">Jul 22</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Renter Info -->
+          <div class="border-t lg:border-t-0 lg:border-l border-slate-100 pt-4 lg:pt-0 lg:pl-8 flex flex-col gap-1.5 w-full lg:w-auto">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Renter</span>
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80" alt="Peace D." class="w-9 h-9 rounded-full object-cover" />
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-brand-navy">Peace D.</span>
+                  <span class="bg-amber-50 text-amber-700 text-[9px] font-bold px-1.5 py-0.2 rounded border border-amber-200/80 flex items-center gap-0.5">
+                    <i data-lucide="shield-check" class="w-2.5 h-2.5 text-amber-600"></i> Verified Renter
+                  </span>
+                </div>
+                <p class="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
+                  <i data-lucide="phone" class="w-3 h-3 text-slate-400"></i> +2348012345678
+                </p>
+                <p class="text-[11px] text-slate-500 flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3 h-3 text-slate-400"></i> Lagos, Nigeria
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TWO COLUMN FORM LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- LEFT COLUMN (Checklist, Photos, Notes, Submit) -->
+          <div class="lg:col-span-8 space-y-6">
+
+            <!-- CONDITION CHECKLIST -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-4">
+              <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Condition Checklist</h2>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-xs text-slate-700">
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>Physical body / casing intact</span>
+                </label>
+
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>Lens / glass surfaces clean</span>
+                </label>
+
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>All accessories included</span>
+                </label>
+
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>Battery & charger present</span>
+                </label>
+
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>Memory cards / cables returned</span>
+                </label>
+
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>No visible scratches or dents</span>
+                </label>
+
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>Viewfinder / LCD screen undamaged</span>
+                </label>
+
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-brand-navy focus:ring-0 accent-brand-navy">
+                  <span>Original packaging / bag</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- PHOTO EVIDENCE -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-4">
+              <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Photo Evidence</h2>
+              
+              <!-- Images Grid -->
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-3" id="photo-container">
+                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=200&q=80" alt="photo_1" class="w-full aspect-square object-cover rounded-md border border-slate-200" />
+                <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=200&q=80" alt="photo_2" class="w-full aspect-square object-cover rounded-md border border-slate-200" />
+                <img src="https://images.unsplash.com/photo-1512790182412-b19e6d611397?auto=format&fit=crop&w=200&q=80" alt="photo_3" class="w-full aspect-square object-cover rounded-md border border-slate-200" />
+                <img src="https://images.unsplash.com/photo-1617005082133-548c4dd27f35?auto=format&fit=crop&w=200&q=80" alt="photo_4" class="w-full aspect-square object-cover rounded-md border border-slate-200" />
+                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=200&q=80" alt="photo_5" class="w-full aspect-square object-cover rounded-md border border-slate-200" />
+                
+                <!-- Dynamic Add Photo Box -->
+                <label class="w-full aspect-square border-2 border-dashed border-slate-200 rounded-md flex flex-col items-center justify-center cursor-pointer hover:border-brand-navy hover:bg-slate-50 transition p-2 text-center group">
+                  <i data-lucide="plus" class="w-4 h-4 text-slate-400 group-hover:text-brand-navy"></i>
+                  <span class="text-[10px] font-semibold text-slate-500 group-hover:text-brand-navy mt-1">Add Photo</span>
+                  <input type="file" id="photo-upload" class="hidden" accept="image/*" />
+                </label>
+              </div>
+
+              <p class="text-[11px] text-slate-400">Upload photos taken during inspection. These are stored with the rental record.</p>
+            </div>
+
+            <!-- INSPECTION NOTES -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
+              <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Inspection Notes</h2>
+              <textarea 
+                rows="3" 
+                placeholder="Type a message..." 
+                class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-navy resize-none"
+              ></textarea>
+              <p class="text-[11px] text-slate-400">Optional — visible to the renter if a dispute is filed.</p>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="space-y-2.5 max-w-xs">
+              <button class="w-full bg-brand-navy text-white py-3 rounded-xl text-xs font-bold hover:bg-slate-800 transition shadow-sm">
+                Confirm Return
+              </button>
+              <button class="w-full bg-brand-gold text-brand-dark py-3 rounded-xl text-xs font-bold hover:bg-brand-goldHover transition shadow-sm">
+                Report Damage
+              </button>
+              <p class="text-[10px] text-slate-400 text-center">This action is final and notifies the renter.</p>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN (Overall Condition, Security Deposit, Activity Log) -->
+          <div class="lg:col-span-4 space-y-6">
+
+            <!-- OVERALL CONDITION OPTIONS -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-4">
+              <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Overall Condition</h2>
+              
+              <div class="space-y-2.5" id="condition-options">
+                <!-- Option: Good (Selected) -->
+                <label class="flex items-start gap-3 p-3 rounded-lg border-2 border-slate-800 bg-slate-50/50 cursor-pointer transition">
+                  <input type="radio" name="condition" value="good" checked class="mt-0.5 text-brand-navy focus:ring-0 accent-brand-navy" />
+                  <div>
+                    <span class="text-xs font-bold text-brand-navy block">Good</span>
+                    <span class="text-[11px] text-slate-500">No issues found</span>
+                  </div>
+                </label>
+
+                <!-- Option: Fair -->
+                <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer transition">
+                  <input type="radio" name="condition" value="fair" class="mt-0.5 text-brand-navy focus:ring-0 accent-brand-navy" />
+                  <div>
+                    <span class="text-xs font-bold text-slate-800 block">Fair</span>
+                    <span class="text-[11px] text-slate-500">Minor wear, acceptable</span>
+                  </div>
+                </label>
+
+                <!-- Option: Damaged -->
+                <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:border-slate-300 cursor-pointer transition">
+                  <input type="radio" name="condition" value="damaged" class="mt-0.5 text-brand-navy focus:ring-0 accent-brand-navy" />
+                  <div>
+                    <span class="text-xs font-bold text-slate-800 block">Damaged</span>
+                    <span class="text-[11px] text-slate-500">Visible damage present</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- SECURITY DEPOSIT -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
+              <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Security Deposit</h2>
+              
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500">Held amount</span>
+                  <span class="font-bold text-brand-navy">XXXX NGN</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500">Status</span>
+                  <span class="font-bold text-slate-800">Pending release</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-500">Release date</span>
+                  <span class="font-bold text-brand-navy">In 48 hrs</span>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-slate-400 pt-3 border-t border-slate-100 leading-relaxed">
+                Deposit is released to the renter automatically unless a damage claim is filed within 48 hours.
+              </p>
+            </div>
+
+            <!-- ACTIVITY LOG -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-4">
+              <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Activity Log</h2>
+              
+              <div class="space-y-4 text-xs relative pl-4 border-l border-slate-200 ml-1">
+                <!-- Log Item 1 -->
+                <div class="relative">
+                  <span class="w-2 h-2 rounded-full bg-brand-navy absolute -left-[21px] top-1"></span>
+                  <p class="font-bold text-brand-navy">Renter initiated return</p>
+                  <p class="text-[10px] text-slate-400">Jul 22 · 10:04</p>
+                </div>
+
+                <!-- Log Item 2 -->
+                <div class="relative">
+                  <span class="w-2 h-2 rounded-full bg-slate-300 absolute -left-[21px] top-1"></span>
+                  <p class="font-bold text-slate-700">Renter submitted photos</p>
+                  <p class="text-[10px] text-slate-400">Jul 22 · 09:51</p>
+                </div>
+
+                <!-- Log Item 3 -->
+                <div class="relative">
+                  <span class="w-2 h-2 rounded-full bg-slate-300 absolute -left-[21px] top-1"></span>
+                  <p class="font-bold text-slate-700">Item picked up</p>
+                  <p class="text-[10px] text-slate-400">Jul 18 · 08:30</p>
+                </div>
+
+                <!-- Log Item 4 -->
+                <div class="relative">
+                  <span class="w-2 h-2 rounded-full bg-slate-300 absolute -left-[21px] top-1"></span>
+                  <p class="font-bold text-slate-700">Rental confirmed</p>
+                  <p class="text-[10px] text-slate-400">Jul 17 · 14:00</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0B2545] text-slate-200 relative ">
+    
+    <!-- TOP LEFT BLUE ACCENT BAR -->
+    <div class="absolute top-0 left-0 w-1/4 h-[1px] bg-white"></div>
+
+    <!-- MAIN FOOTER CONTAINER -->
+    <div class="max-w-7xl mx-auto px-6 pt-16 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+
+        <!-- COLUMN 1: BRAND & INFO (SPANS 2 COLS ON LARGE SCREENS) -->
+        <div class="lg:col-span-2 space-y-6">
+          
+          <!-- LOGO ICON -->
+          <div class="inline-flex items-center justify-center">
+            <div class="flex items-center justify-center relative">
+              <div>
+                <img src="images/SVG 2.png" alt="logo" class="w-50">
+              </div>
+            </div>
+          </div>
+
+          <!-- SLOGAN -->
+          <h2 class="text-white font-bold text-xl md:text-2xl tracking-tight">
+            Borrow with Confidence. Lend with Trust
+          </h2>
+
+          <!-- DESCRIPTION -->
+          <p class="text-slate-300 text-sm max-w-sm leading-relaxed font-normal">
+            TrustLend is a secure marketplace connecting people and businesses to rent and lend equipment with confidence.
+          </p>
+
+          <!-- SOCIAL ICONS -->
+          <div class="flex items-center gap-3 pt-2">
+            <!-- Instagram -->
+            <a href="#" aria-label="Instagram" class="w-7 h-7 rounded bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white text-xs hover:opacity-80 transition-opacity">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <!-- X (Twitter) -->
+            <a href="#" aria-label="X Twitter" class="w-7 h-7 rounded bg-[#2b4278] flex items-center justify-center text-white text-xs hover:bg-slate-700 transition-colors">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <!-- Facebook -->
+            <a href="#" aria-label="Facebook" class="w-7 h-7 rounded bg-[#1877f2] flex items-center justify-center text-white text-xs hover:opacity-80 transition-opacity">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <!-- LinkedIn -->
+            <a href="#" aria-label="LinkedIn" class="w-7 h-7 rounded bg-[#0a66c2] flex items-center justify-center text-white text-xs hover:opacity-80 transition-opacity">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: QUICK LINKS -->
+        <div class="border-b border-slate-700/50 pb-4 md:border-none md:pb-0">
+          <button class="w-full flex items-center justify-between md:cursor-default text-left group focus:outline-none" onclick="toggleAccordion('quick-links')">
+            <h3 class="text-[#e59819] font-semibold text-sm uppercase tracking-wider">QUICK LINKS</h3>
+            <i id="quick-links-icon" class="fa-solid fa-chevron-down text-[#e59819] md:hidden transition-transform duration-200"></i>
+          </button>
+          
+          <ul id="quick-links" class="mt-4 space-y-3 text-sm text-slate-300 hidden md:block">
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Browse Equipments</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">List Your Euipments</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">How It Works</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Trust & Safety</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 3: COMPANY -->
+        <div class="border-b border-slate-700/50 pb-4 md:border-none md:pb-0">
+          <button class="w-full flex items-center justify-between md:cursor-default text-left group focus:outline-none" onclick="toggleAccordion('company')">
+            <h3 class="text-[#e59819] font-semibold text-sm uppercase tracking-wider">COMPANY</h3>
+            <i id="company-icon" class="fa-solid fa-chevron-down text-[#e59819] md:hidden transition-transform duration-200"></i>
+          </button>
+
+          <ul id="company" class="mt-4 space-y-3 text-sm text-slate-300 hidden md:block">
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">About</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 4: SUPPORT -->
+        <div>
+          <button class="w-full flex items-center justify-between md:cursor-default text-left group focus:outline-none" onclick="toggleAccordion('support')">
+            <h3 class="text-[#e59819] font-semibold text-sm uppercase tracking-wider">SUPPORT</h3>
+            <i id="support-icon" class="fa-solid fa-chevron-down text-[#e59819] md:hidden transition-transform duration-200"></i>
+          </button>
+
+          <ul id="support" class="mt-4 space-y-3 text-sm text-slate-300 hidden md:block">
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Help Center</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">FAQs</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition-colors duration-150 block py-0.5">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM COPYRIGHT SECTION -->
+      <div class="mt-16 pt-8 text-slate-300 text-sm font-normal flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p>© 2026 TrustLend Technologies Ltd. All rights reserved</p>
+        
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mobile Sidebar Controls
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebarClose = document.getElementById('sidebar-close');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    function openSidebar() {
+      sidebar.classList.remove('-translate-x-full');
+      sidebarOverlay.classList.remove('hidden');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.add('-translate-x-full');
+      sidebarOverlay.classList.add('hidden');
+    }
+
+    sidebarToggle?.addEventListener('click', openSidebar);
+    sidebarClose?.addEventListener('click', closeSidebar);
+    sidebarOverlay?.addEventListener('click', closeSidebar);
+
+    // Radio option selection styling handler
+    const conditionLabels = document.querySelectorAll('#condition-options label');
+    conditionLabels.forEach(label => {
+      label.addEventListener('click', () => {
+        conditionLabels.forEach(l => {
+          l.classList.remove('border-2', 'border-slate-800', 'bg-slate-50/50');
+          l.classList.add('border', 'border-slate-200');
+        });
+        label.classList.remove('border', 'border-slate-200');
+        label.classList.add('border-2', 'border-slate-800', 'bg-slate-50/50');
+      });
+    });
+
+    // Image Upload Interactivity
+    const photoUploadInput = document.getElementById('photo-upload');
+    const photoContainer = document.getElementById('photo-container');
+
+    photoUploadInput?.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const newImg = document.createElement('img');
+          newImg.src = evt.target.result;
+          newImg.alt = "Uploaded Photo";
+          newImg.className = "w-full aspect-square object-cover rounded-md border border-slate-200";
+          // Insert preceding the Add Photo box
+          photoContainer.insertBefore(newImg, photoContainer.lastElementChild);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
