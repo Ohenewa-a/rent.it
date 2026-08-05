@@ -974,5 +974,85 @@
         </div>
       </footer>
     </main>
-  </body>
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#10265e] text-white text-xs font-semibold px-6 py-3 rounded-lg shadow-lg z-50 hidden" style="animation:fadeIn .3s ease-out"></div>
+  <style>@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}</style>
+
+  <script>
+    function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2500);}
+
+    // ── Profile Photo Upload ──
+    const camBtn=document.querySelector('[aria-label="Change profile photo"]');
+    if(camBtn){
+      const fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='image/*';fileInput.hidden=true;document.body.appendChild(fileInput);
+      camBtn.addEventListener('click',()=>fileInput.click());
+      fileInput.addEventListener('change',e=>{
+        const f=e.target.files[0];if(!f)return;
+        if(!f.type.startsWith('image/')){toast('Please select an image');return;}
+        const reader=new FileReader();
+        reader.onload=ev=>{document.querySelectorAll('img[alt="Jane Smith"],img[alt="Your profile"]').forEach(img=>img.src=ev.target.result);toast('Profile photo updated!');};
+        reader.readAsDataURL(f);
+      });
+    }
+
+    // ── Edit Buttons ──
+    document.querySelectorAll('button').forEach(btn=>{
+      if(btn.textContent.trim()==='Edit'){
+        btn.addEventListener('click',()=>{
+          const card=btn.closest('[class*="rounded-"]');
+          const title=card?.querySelector('h3')?.textContent?.trim()||'section';
+          toast(`Editing ${title}...`);
+        });
+      }
+    });
+
+    // ── View All Links ──
+    document.querySelectorAll('a').forEach(a=>{
+      const text=a.textContent.trim();
+      if(text.includes('View All')||text.includes('View all')){
+        a.addEventListener('click',e=>{e.preventDefault();toast('Loading full list...');});
+      }
+    });
+
+    // ── Quick Action Links ──
+    const quickActions={'View My Listings':'equipment-list.html','Payout Account':'wallet.html','Payment Methods':'wallet.html','Security Settings':'#','Download Receipts':null};
+    document.querySelectorAll('aside a, .flex-col a').forEach(a=>{
+      const text=a.querySelector('.flex-1')?.textContent?.trim();
+      if(text==='Download Receipts'){
+        a.addEventListener('click',e=>{e.preventDefault();toast('Downloading receipts...');});
+      }
+    });
+
+    // ── Help & Support Links ──
+    document.querySelectorAll('a').forEach(a=>{
+      const text=a.textContent.trim();
+      if(text==='Visit Help Center'){a.addEventListener('click',e=>{e.preventDefault();toast('Opening Help Center...');});}
+      if(text==='Contact Support'){a.addEventListener('click',e=>{e.preventDefault();toast('Opening support chat...');});}
+    });
+
+    // ── Notification Bell ──
+    document.querySelector('.fa-bell')?.closest('i')?.parentElement?.addEventListener('click',()=>toast('No new notifications'));
+
+    // ── Search ──
+    const searchInput=document.querySelector('input[placeholder="Search"]');
+    if(searchInput){
+      searchInput.addEventListener('input',()=>{
+        const q=searchInput.value.toLowerCase();
+        document.querySelectorAll('section > div > div, section > div > .rounded-\\[14px\\]').forEach(card=>{
+          if(card.closest('aside'))return;
+          card.style.display=!q||card.textContent.toLowerCase().includes(q)?'':'none';
+        });
+      });
+    }
+
+    // ── Recent Activity Table Row Hover ──
+    document.querySelectorAll('table tbody tr').forEach(row=>{
+      row.style.cursor='pointer';
+      row.addEventListener('click',()=>{
+        const name=row.querySelector('td')?.textContent?.trim()||'item';
+        toast(`Viewing details: ${name}`);
+      });
+    });
+  </script>
+</body>
 </html>

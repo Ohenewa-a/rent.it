@@ -617,9 +617,135 @@
     </div>
   </footer>
 
-  <!-- Lucide Script initialization -->
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#0B2545] text-white text-xs font-semibold px-6 py-3 rounded-lg shadow-lg z-50 hidden" style="animation:fadeIn .3s ease-out"></div>
+
+  <!-- Confirm Modal -->
+  <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 text-center" style="animation:fadeIn .3s ease-out">
+      <div id="mIcon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"></div>
+      <h3 id="mTitle" class="text-base font-bold text-gray-900 mb-2"></h3>
+      <p id="mText" class="text-sm text-gray-500 mb-6"></p>
+      <div class="flex gap-3">
+        <button onclick="closeModal()" class="flex-1 border border-gray-300 text-gray-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-gray-50 transition">Cancel</button>
+        <button id="mBtn" onclick="execAction()" class="flex-1 font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+          <span id="mBtnTxt"></span><i id="mSpin" class="fa-solid fa-spinner fa-spin hidden"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}</style>
+
   <script>
+    // Init Lucide
     lucide.createIcons();
+
+    const $=id=>document.getElementById(id);
+    let pendingAction=null,pendingEl=null;
+    function toast(m){const t=$('toast');t.textContent=m;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2500);}
+    function closeModal(){$('modal').classList.add('hidden');pendingAction=null;}
+
+    // ── Accept / Decline Bookings ──
+    document.querySelectorAll('button').forEach(btn=>{
+      const text=btn.textContent.trim();
+
+      if(text==='Accept'){
+        btn.addEventListener('click',()=>{
+          const card=btn.closest('.space-y-3')?.closest('div');
+          const name=card?.querySelector('h3')?.textContent?.trim()||'this booking';
+          pendingAction='accept';pendingEl=card;
+          $('mIcon').innerHTML='<i class="fa-solid fa-circle-check text-green-600 text-xl"></i>';
+          $('mIcon').className='w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4';
+          $('mTitle').textContent='Accept Booking?';
+          $('mText').textContent=`Accept the booking request for ${name}? The renter will be notified.`;
+          $('mBtn').className='flex-1 bg-[#0B2545] text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2';
+          $('mBtnTxt').textContent='Accept';
+          $('modal').classList.remove('hidden');
+        });
+      }
+
+      if(text==='Decline'){
+        btn.addEventListener('click',()=>{
+          const card=btn.closest('.space-y-3')?.closest('div');
+          const name=card?.querySelector('h3')?.textContent?.trim()||'this booking';
+          pendingAction='decline';pendingEl=card;
+          $('mIcon').innerHTML='<i class="fa-solid fa-xmark text-red-600 text-xl"></i>';
+          $('mIcon').className='w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4';
+          $('mTitle').textContent='Decline Booking?';
+          $('mText').textContent=`Decline the booking request for ${name}? The renter will be notified.`;
+          $('mBtn').className='flex-1 bg-red-600 text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2';
+          $('mBtnTxt').textContent='Decline';
+          $('modal').classList.remove('hidden');
+        });
+      }
+    });
+
+    function execAction(){
+      $('mBtn').disabled=true;
+      $('mBtnTxt').textContent=pendingAction==='accept'?'Accepting...':'Declining...';
+      $('mSpin').classList.remove('hidden');
+
+      setTimeout(()=>{
+        $('mBtn').disabled=false;$('mSpin').classList.add('hidden');closeModal();
+        if(pendingAction==='accept'){
+          toast('Booking accepted! Renter has been notified.');
+          if(pendingEl){pendingEl.style.opacity='0.4';pendingEl.style.pointerEvents='none';
+            const badge=document.createElement('span');badge.className='bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full';badge.textContent='Accepted ✓';
+            pendingEl.querySelector('.flex.items-center.gap-2')?.appendChild(badge);}
+        }else{
+          toast('Booking declined.');
+          if(pendingEl){pendingEl.style.transition='all 0.3s';pendingEl.style.maxHeight='0';pendingEl.style.opacity='0';pendingEl.style.overflow='hidden';
+            setTimeout(()=>pendingEl.remove(),300);}
+        }
+        pendingAction=null;pendingEl=null;
+      },1200);
+    }
+
+    // ── Auto-decline Toggle ──
+    document.querySelector('.sr-only.peer')?.closest('label')?.addEventListener('click',function(){
+      setTimeout(()=>{
+        const checked=this.querySelector('input').checked;
+        toast(checked?'Auto-decline enabled (24h)':'Auto-decline disabled');
+      },100);
+    });
+
+    // ── Search ──
+    const searchInput=document.querySelector('input[placeholder="Search"]');
+    searchInput?.addEventListener('input',()=>{
+      const q=searchInput.value.toLowerCase();
+      document.querySelectorAll('main > .grid > div, main .bg-white').forEach(card=>{
+        card.style.display=!q||card.textContent.toLowerCase().includes(q)?'':'none';
+      });
+    });
+
+    // ── View All Links ──
+    document.querySelectorAll('a').forEach(a=>{
+      if(a.textContent.trim().includes('View all')||a.textContent.trim().includes('View details')){
+        a.addEventListener('click',e=>{e.preventDefault();toast('Loading...');});
+      }
+    });
+
+    // ── Notification Bell ──
+    document.querySelector('[data-lucide="bell"]')?.closest('button')?.addEventListener('click',()=>toast('3 new notifications'));
+
+    // ── Quick Action Buttons ──
+    document.querySelectorAll('main button, main a').forEach(el=>{
+      const text=el.textContent.trim();
+      if(text==='List Equipment'){el.addEventListener('click',e=>{e.preventDefault();toast('Opening equipment listing form...');});}
+      if(text==='View Earnings'){el.addEventListener('click',e=>{e.preventDefault();window.location.href='wallet.html';});}
+      if(text==='Manage Bookings'){el.addEventListener('click',e=>{e.preventDefault();toast('Opening bookings...');});}
+    });
+
+    // ── Booking History Row Click ──
+    document.querySelectorAll('table tbody tr').forEach(row=>{
+      row.style.cursor='pointer';
+      row.addEventListener('click',()=>{
+        const name=row.querySelector('.font-bold')?.textContent?.trim()||'item';
+        toast(`Viewing booking: ${name}`);
+      });
+    });
   </script>
 </body>
 </html>

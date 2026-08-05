@@ -111,7 +111,7 @@
                     <p class="text-sm text-[#1a1a1a]">Review the returned item and confirm its condition</p>
                 </div>
                 <div class="flex flex-row px-8 py-4 gap-3 items-center">
-                    <input type="text" class="rounded-2xl border border[#9e9e9e] w-76 h-10 px-4 inline-block py-3" placeholder="Search">
+                    <input type="text" id="pageSearch" oninput="searchPage()" class="rounded-2xl border border[#9e9e9e] w-76 h-10 px-4 inline-block py-3" placeholder="Search">
 
                     <button class=" hover:text-slate-600 text-black relative">
                         <i class="fa-regular fa-bell fa-2x"></i>
@@ -202,7 +202,7 @@
                     <!-- condition -->
                     <div class="mx-4 px-4 py-4 my-4 bg-white text-sm rounded-2xl">
                         <h3 class="font-semibold tracking-widest text-brand py-2">Condition Checklist</h3>
-                        <div class="grid grid-cols-2 gap-y-4 gap-x-6 px-1 ">
+                        <div id="checklistGrid" class="grid grid-cols-2 gap-y-4 gap-x-6 px-1 ">
                             <label class="flex items-center gap-4">
                                 <input type="checkbox" class=" rounded border-text-slate-300">
                                 <span>Physical body / casing intact</span>
@@ -250,13 +250,13 @@
                     <!-- photo evidence -->
                     <div class="mx-4 px-4 my-6 bg-white flex flex-col rounded-2xl">
                         <h3 class="font-semibold tracking-widest text-brand py-2">PHOTOS EVIDENCE</h3>
-                        <div class="flex flex-row gap-2 ">
-                            <img src="images/2-cam.png" alt="cammera">
-                            <img src="images/4-cam.png" alt="cammera">
-                            <img src="images/3-cam.png" alt="cammera">
-                            <img src="images/4-cam.png" alt="cammera">
-                            <img src="images/2-cam.png" alt="cammera">
-                            <input type="file"  class="hidden" id="inputfile">
+                        <div id="photoGrid" class="flex flex-row gap-2 flex-wrap">
+                            <img src="images/2-cam.png" alt="camera" class="w-24 h-24 object-cover rounded-lg cursor-pointer" onclick="openLightbox(this.src)">
+                            <img src="images/4-cam.png" alt="camera" class="w-24 h-24 object-cover rounded-lg cursor-pointer" onclick="openLightbox(this.src)">
+                            <img src="images/3-cam.png" alt="camera" class="w-24 h-24 object-cover rounded-lg cursor-pointer" onclick="openLightbox(this.src)">
+                            <img src="images/4-cam.png" alt="camera" class="w-24 h-24 object-cover rounded-lg cursor-pointer" onclick="openLightbox(this.src)">
+                            <img src="images/2-cam.png" alt="camera" class="w-24 h-24 object-cover rounded-lg cursor-pointer" onclick="openLightbox(this.src)">
+                            <input type="file" class="hidden" id="inputfile" accept="image/*" multiple>
                             <label for="inputfile" class="cursor-pointer border px-4 py-4 w-28 flex justify-center items-center">
                                 <i class="fa-solid fa-plus"></i>
                             </label>
@@ -267,12 +267,12 @@
 
                     <div class="mx-4 px-4 my-6 bg-white flex flex-col rounded-2xl ">
                         <h3 class="font-semibold tracking-widest text-brand py-2">Inspection notes</h3>
-                        <textarea name="inspection notes" class="w-full border rounded-2xl h-[71px] px-4 py-2" placeholder="Type a message..."></textarea>
+                        <textarea id="inspNotes" name="inspection notes" class="w-full border rounded-2xl h-[71px] px-4 py-2" placeholder="Type a message..." oninput="autoSave()"></textarea>
                         <p class="text-slate-500 py-2 text-xs">Optional — visible to the renter if a dispute is filed.</p>
                     </div>
                     <div class="flex flex-col px-8 py-8 bg-white mx-4 rounded-2xl ">
-                        <button class="bg-brand text-white w-[220px] h-[56px] rounded-2xl px-1">Confirm Return</button>
-                        <button class="bg-accent text-white w-[220px] h-[56px] rounded-2xl my-2">Report Damage</button>
+                        <button onclick="confirmReturn()" id="confirmBtn" class="bg-brand text-white w-[220px] h-[56px] rounded-2xl px-1 flex items-center justify-center gap-2"><span id="confirmText">Confirm Return</span><i id="confirmSpin" class="fa-solid fa-spinner fa-spin hidden"></i></button>
+                        <button onclick="reportDamage()" class="bg-accent text-white w-[220px] h-[56px] rounded-2xl my-2">Report Damage</button>
                         <p class="text-sm text-slate-500">This action is final and notifies the renter.</p>
                     </div>
 
@@ -283,24 +283,24 @@
                     <div class="mx-4 px-4 py-2 my-2 bg-white flex flex-col rounded-2xl">
                         <h3 class="font-semibold tracking-widest text-brand py-2">Overall Condition</h3>
 
-                            <label class="flex items-center gap-4 w-[212px] h-[59px] border-text-slate-300 border border-text-slate-300 px-2  py-8 rounded-2xl my-1">
-                            <input type="radio" class="w-4 h-4">
+                            <label class="flex items-center gap-4 w-[212px] h-[59px] border-text-slate-300 border border-text-slate-300 px-2  py-8 rounded-2xl my-1 condition-opt border-2 border-brand bg-brand/5">
+                            <input type="radio" name="condition" value="good" checked class="w-4 h-4">
                             <div class=" flex flex-col">
                             <p class="font-semibold text-brand ">Good</p>
                             <p class="text-xs font-light text-slate-500"> No issues found</p>
                             </div>
                             </label>
 
-                            <label class="flex items-center gap-4 w-[212px] h-[59px] border-text-slate-300 border border-text-slate-300 px-2 py-8 rounded-2xl my-1 ">
-                            <input type="radio" class="w-4 h-4">
+                            <label class="flex items-center gap-4 w-[212px] h-[59px] border-text-slate-300 border border-text-slate-300 px-2 py-8 rounded-2xl my-1 condition-opt">
+                            <input type="radio" name="condition" value="fair" class="w-4 h-4">
                             <div class=" flex flex-col">
                             <p class="font-semibold text-brand ">Fair</p>
                             <p class="text-xs font-light text-slate-500"> Minor wear, acceptable</p>
                             </div>
                             </label>
 
-                            <label class="flex items-center gap-4 w-[212px] h-[59px] border-text-slate-300 border border-text-slate-300 px-2 py-8 rounded-2xl my-1 p ">
-                            <input type="radio" class="w-4 h-4">
+                            <label class="flex items-center gap-4 w-[212px] h-[59px] border-text-slate-300 border border-text-slate-300 px-2 py-8 rounded-2xl my-1 condition-opt">
+                            <input type="radio" name="condition" value="damaged" class="w-4 h-4">
                             <div class=" flex flex-col">
                             <p class="font-semibold text-brand ">Damaged</p>
                             <p class="text-xs font-light text-slate-500"> Visible damage present</p>
@@ -401,8 +401,159 @@
         </div>
       </footer>
 
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 text-white text-xs font-semibold px-6 py-3 rounded-lg shadow-lg z-50 hidden"></div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/85 flex items-center justify-center z-50 hidden cursor-pointer" onclick="closeLightbox()">
+    <img id="lbImg" src="" alt="Photo" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl">
+    <button class="absolute top-6 right-6 text-white text-3xl hover:text-amber-400">&times;</button>
+  </div>
+
+  <!-- Confirm Modal -->
+  <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 text-center" style="animation:fadeIn .3s ease-out">
+      <div id="mIcon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"></div>
+      <h3 id="mTitle" class="text-base font-bold text-gray-900 mb-2"></h3>
+      <p id="mText" class="text-sm text-gray-500 mb-6"></p>
+      <div class="flex gap-3">
+        <button onclick="closeModal()" class="flex-1 border border-gray-300 text-gray-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-gray-50 transition">Cancel</button>
+        <button id="mBtn" onclick="execAction()" class="flex-1 font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+          <span id="mBtnTxt"></span><i id="mSpin" class="fa-solid fa-spinner fa-spin hidden"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}</style>
+
+  <script>
+    const $=id=>document.getElementById(id);
+    let pending=null;
+
+    // ── Toast ──
+    function toast(msg,type){const t=$('toast');t.textContent=msg;t.className='fixed bottom-6 left-1/2 -translate-x-1/2 text-white text-xs font-semibold px-6 py-3 rounded-lg shadow-lg z-50 '+(type==='err'?'bg-red-600':type==='warn'?'bg-amber-600':'bg-brand');setTimeout(()=>t.classList.add('hidden'),2500);}
+
+    // ── Condition Radio Styling ──
+    document.querySelectorAll('.condition-opt').forEach(label=>{
+      label.addEventListener('click',()=>{
+        document.querySelectorAll('.condition-opt').forEach(l=>{l.classList.remove('border-2','border-brand','bg-brand/5');l.classList.add('border','border-text-slate-300');});
+        label.classList.remove('border','border-text-slate-300');label.classList.add('border-2','border-brand','bg-brand/5');
+      });
+    });
+
+    // ── Checklist Progress ──
+    const cbs=document.querySelectorAll('#checklistGrid input[type="checkbox"]');
+    cbs.forEach(cb=>cb.addEventListener('change',updateProgress));
+
+    function updateProgress(){
+      const total=cbs.length, checked=[...cbs].filter(c=>c.checked).length, pct=Math.round(checked/total*100);
+      let bar=$('progBar');
+      if(!bar){
+        const card=document.querySelector('#checklistGrid')?.closest('.bg-white');
+        if(!card)return;
+        const div=document.createElement('div');div.className='mt-3 px-1';
+        div.innerHTML=`<div class="flex justify-between text-[10px] mb-1"><span id="progCount" class="text-slate-400"></span><span id="progPct" class="font-bold"></span></div><div class="w-full bg-slate-100 rounded-full h-1.5"><div id="progBar" class="h-1.5 rounded-full transition-all duration-300"></div></div>`;
+        card.appendChild(div);bar=$('progBar');
+      }
+      $('progCount').textContent=`${checked} of ${total} checked`;
+      $('progPct').textContent=pct+'%';$('progPct').className='font-bold '+(pct===100?'text-green-600':'text-slate-600');
+      bar.style.width=pct+'%';bar.className='h-1.5 rounded-full transition-all duration-300 '+(pct===100?'bg-green-500':pct>50?'bg-amber-400':'bg-slate-300');
+    }
+    updateProgress();
+
+    // ── Photo Upload ──
+    $('inputfile').addEventListener('change',e=>{
+      for(const file of e.target.files){
+        if(!file.type.startsWith('image/')){toast('Only images allowed','err');continue;}
+        if(file.size>5*1024*1024){toast('Max 5MB per image','err');continue;}
+        const reader=new FileReader();
+        reader.onload=ev=>{
+          const img=document.createElement('img');
+          img.src=ev.target.result;img.alt='Uploaded';
+          img.className='w-24 h-24 object-cover rounded-lg cursor-pointer';
+          img.onclick=()=>openLightbox(img.src);
+          $('photoGrid').insertBefore(img,$('photoGrid').querySelector('label'));
+          toast('Photo added');
+        };
+        reader.readAsDataURL(file);
+      }
+      e.target.value='';
+    });
+
+    // ── Lightbox ──
+    function openLightbox(src){$('lbImg').src=src;$('lightbox').classList.remove('hidden');}
+    function closeLightbox(){$('lightbox').classList.add('hidden');}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+
+    // ── Notes Auto-save ──
+    let saveTimer;
+    function autoSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{localStorage.setItem('inspNotes_A1042',$('inspNotes').value);toast('Notes auto-saved');},1500);}
+    const saved=localStorage.getItem('inspNotes_A1042');if(saved)$('inspNotes').value=saved;
+
+    // ── Confirm Return ──
+    function confirmReturn(){
+      const checked=[...cbs].filter(c=>c.checked).length;
+      if(checked===0){toast('Complete the checklist first','err');return;}
+      const cond=document.querySelector('[name="condition"]:checked')?.value||'good';
+      pending='confirm';
+      $('mIcon').innerHTML='<i class="fa-solid fa-circle-check text-green-600 text-xl"></i>';
+      $('mIcon').className='w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4';
+      $('mTitle').textContent='Confirm Return?';
+      $('mText').textContent=`Condition: ${cond.toUpperCase()}. ${checked}/${cbs.length} items verified. This releases the equipment back to your inventory.`;
+      $('mBtn').className='flex-1 bg-brand text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2';
+      $('mBtnTxt').textContent='Confirm';
+      $('modal').classList.remove('hidden');
+    }
+
+    function reportDamage(){
+      if(!$('inspNotes').value.trim()){toast('Add inspection notes describing the damage','err');$('inspNotes').focus();return;}
+      pending='damage';
+      $('mIcon').innerHTML='<i class="fa-solid fa-triangle-exclamation text-amber-600 text-xl"></i>';
+      $('mIcon').className='w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4';
+      $('mTitle').textContent='Report Damage?';
+      $('mText').textContent='This flags the rental for review and holds the security deposit. The renter will be notified.';
+      $('mBtn').className='flex-1 bg-amber-500 text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2';
+      $('mBtnTxt').textContent='Report';
+      $('modal').classList.remove('hidden');
+    }
+
+    function closeModal(){$('modal').classList.add('hidden');pending=null;}
+
+    function execAction(){
+      $('mBtn').disabled=true;$('mBtnTxt').textContent=pending==='confirm'?'Processing...':'Reporting...';$('mSpin').classList.remove('hidden');
+      setTimeout(()=>{
+        $('mBtn').disabled=false;$('mSpin').classList.add('hidden');closeModal();
+        if(pending==='confirm'){
+          toast('Return confirmed! Equipment is back in your inventory.');
+          addLog('Return confirmed by owner','Just now');
+        }else{
+          toast('Damage reported. Renter notified.','warn');
+          addLog('Damage reported by owner','Just now');
+        }
+        localStorage.removeItem('inspNotes_A1042');pending=null;
+      },1500);
+    }
+
+    // ── Activity Log ──
+    function addLog(text,time){
+      const log=document.querySelector('.mr-4.ml-2');if(!log)return;
+      const container=log.querySelector('h3').nextElementSibling||log;
+      const entry=document.createElement('div');
+      entry.className='flex flex-row items-center relative';
+      entry.innerHTML=`<span class="w-1.5 h-1.5 rounded-full bg-green-500 mb-5 mr-2"></span><div class="flex flex-col pr-1 rounded-lg py-2"><p class="text-xs font-bold text-green-700">${text}</p><p class="text-[#bdbdbd] text-xs">${time}</p></div>`;
+      const firstEntry=log.querySelector('.flex.flex-row.items-center.relative');
+      if(firstEntry)log.insertBefore(entry,firstEntry);else log.appendChild(entry);
+    }
+
+    // ── Search ──
+    function searchPage(){
+      const q=$('pageSearch').value.toLowerCase();
+      document.querySelectorAll('main > .bg-white, main > div > .bg-white, main .mx-4').forEach(card=>{
+        card.style.display=!q||card.textContent.toLowerCase().includes(q)?'':'none';
+      });
+    }
+  </script>
     
 </body>
 </html>
-
-                                                                                                                                                                                                                                                                       

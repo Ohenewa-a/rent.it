@@ -123,7 +123,9 @@
           <div class="relative w-48 sm:w-64">
             <input 
               type="text" 
+              id="headerSearch"
               placeholder="Search" 
+              oninput="searchPage()"
               class="w-full bg-slate-50 text-xs text-slate-800 placeholder-slate-400 pl-4 pr-9 py-2 rounded-full border border-slate-200 focus:outline-none focus:border-brand-navy"
             />
             <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2"></i>
@@ -283,8 +285,10 @@
             <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm space-y-3">
               <h2 class="text-xs font-bold text-slate-600 uppercase tracking-wider">Inspection Notes</h2>
               <textarea 
+                id="inspectionNotes"
                 rows="3" 
                 placeholder="Type a message..." 
+                oninput="autoSaveNotes()"
                 class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-navy resize-none"
               ></textarea>
               <p class="text-[11px] text-slate-400">Optional — visible to the renter if a dispute is filed.</p>
@@ -292,10 +296,10 @@
 
             <!-- ACTION BUTTONS -->
             <div class="space-y-2.5 max-w-xs">
-              <button class="w-full bg-brand-navy text-white py-3 rounded-xl text-xs font-bold hover:bg-slate-800 transition shadow-sm">
-                Confirm Return
+              <button onclick="confirmReturn()" id="confirmBtn" class="w-full bg-brand-navy text-white py-3 rounded-xl text-xs font-bold hover:bg-slate-800 transition shadow-sm flex items-center justify-center gap-2">
+                <span id="confirmText">Confirm Return</span><i id="confirmSpin" class="fa-solid fa-spinner fa-spin hidden"></i>
               </button>
-              <button class="w-full bg-brand-gold text-brand-dark py-3 rounded-xl text-xs font-bold hover:bg-brand-goldHover transition shadow-sm">
+              <button onclick="reportDamage()" class="w-full bg-brand-gold text-brand-dark py-3 rounded-xl text-xs font-bold hover:bg-brand-goldHover transition shadow-sm">
                 Report Damage
               </button>
               <p class="text-[10px] text-slate-400 text-center">This action is final and notifies the renter.</p>
@@ -516,32 +520,61 @@
     </div>
   </footer>
 
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 text-white text-xs font-semibold px-6 py-3 rounded-lg shadow-lg z-50 hidden" style="animation:fadeIn .3s ease-out"></div>
+
+  <!-- Confirm Modal -->
+  <div id="actionModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 text-center" style="animation:fadeIn .3s ease-out">
+      <div id="modalIcon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"></div>
+      <h3 id="modalTitle" class="text-base font-bold text-gray-900 mb-2"></h3>
+      <p id="modalText" class="text-sm text-gray-500 mb-6"></p>
+      <div class="flex gap-3">
+        <button onclick="closeModal()" class="flex-1 border border-slate-300 text-slate-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-slate-50 transition">Cancel</button>
+        <button id="modalBtn" onclick="executeAction()" class="flex-1 font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+          <span id="modalBtnText"></span><i id="modalSpin" class="fa-solid fa-spinner fa-spin hidden"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/85 flex items-center justify-center z-50 hidden cursor-pointer" onclick="closeLightbox()">
+    <img id="lightboxImg" src="" alt="Photo" class="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl" />
+    <button class="absolute top-6 right-6 text-white text-2xl hover:text-amber-400 transition">&times;</button>
+  </div>
+
+  <style>@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}</style>
+
   <!-- JAVASCRIPT -->
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Mobile Sidebar Controls
+    // ── Mobile Sidebar ──
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebarClose = document.getElementById('sidebar-close');
     const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-    function openSidebar() {
-      sidebar.classList.remove('-translate-x-full');
-      sidebarOverlay.classList.remove('hidden');
-    }
-
-    function closeSidebar() {
-      sidebar.classList.add('-translate-x-full');
-      sidebarOverlay.classList.add('hidden');
-    }
+    function openSidebar() { sidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeSidebar() { sidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
 
     sidebarToggle?.addEventListener('click', openSidebar);
     sidebarClose?.addEventListener('click', closeSidebar);
     sidebarOverlay?.addEventListener('click', closeSidebar);
 
-    // Radio option selection styling handler
+    // ── Toast ──
+    function showToast(msg, type) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 text-white text-xs font-semibold px-6 py-3 rounded-lg shadow-lg z-50';
+      t.classList.add(type === 'error' ? 'bg-red-600' : type === 'warn' ? 'bg-amber-600' : 'bg-[#0B2545]');
+      t.style.animation = 'fadeIn .3s ease-out';
+      setTimeout(() => t.classList.add('hidden'), 2500);
+    }
+
+    // ── Condition Radio Styling ──
     const conditionLabels = document.querySelectorAll('#condition-options label');
     conditionLabels.forEach(label => {
       label.addEventListener('click', () => {
@@ -554,25 +587,211 @@
       });
     });
 
-    // Image Upload Interactivity
+    // ── Checklist Progress ──
+    const checkboxes = document.querySelectorAll('#condition-checklist input[type="checkbox"], .grid.grid-cols-1.sm\\:grid-cols-2 input[type="checkbox"]');
+
+    // Add IDs to checklist parent for targeting
+    document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2')?.closest('.bg-white')?.setAttribute('id', 'checklistCard');
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updateChecklistProgress);
+    });
+
+    function updateChecklistProgress() {
+      const total = checkboxes.length;
+      const checked = [...checkboxes].filter(c => c.checked).length;
+      const pct = Math.round((checked / total) * 100);
+
+      // Create or update progress bar
+      let prog = document.getElementById('checklistProgress');
+      if (!prog) {
+        const card = checkboxes[0]?.closest('.bg-white');
+        if (!card) return;
+        const h2 = card.querySelector('h2');
+        prog = document.createElement('div');
+        prog.id = 'checklistProgress';
+        prog.className = 'mt-3';
+        prog.innerHTML = `<div class="flex items-center justify-between text-[10px] mb-1"><span class="text-slate-400" id="checkCount"></span><span class="font-bold" id="checkPct"></span></div><div class="w-full bg-slate-100 rounded-full h-1.5"><div id="checkBar" class="h-1.5 rounded-full transition-all duration-300"></div></div>`;
+        card.appendChild(prog);
+      }
+
+      document.getElementById('checkCount').textContent = `${checked} of ${total} items checked`;
+      document.getElementById('checkPct').textContent = `${pct}%`;
+      document.getElementById('checkPct').className = 'font-bold ' + (pct === 100 ? 'text-green-600' : 'text-slate-600');
+      const bar = document.getElementById('checkBar');
+      bar.style.width = pct + '%';
+      bar.className = 'h-1.5 rounded-full transition-all duration-300 ' + (pct === 100 ? 'bg-green-500' : pct > 50 ? 'bg-amber-400' : 'bg-slate-300');
+    }
+
+    // ── Photo Upload (enhanced) ──
     const photoUploadInput = document.getElementById('photo-upload');
     const photoContainer = document.getElementById('photo-container');
 
     photoUploadInput?.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
+      const files = e.target.files;
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) { showToast('Only image files allowed', 'error'); continue; }
+        if (file.size > 5 * 1024 * 1024) { showToast('Image must be under 5MB', 'error'); continue; }
+
         const reader = new FileReader();
         reader.onload = function(evt) {
-          const newImg = document.createElement('img');
-          newImg.src = evt.target.result;
-          newImg.alt = "Uploaded Photo";
-          newImg.className = "w-full aspect-square object-cover rounded-md border border-slate-200";
-          // Insert preceding the Add Photo box
-          photoContainer.insertBefore(newImg, photoContainer.lastElementChild);
+          const wrapper = document.createElement('div');
+          wrapper.className = 'relative group';
+          wrapper.innerHTML = `
+            <img src="${evt.target.result}" alt="Uploaded" class="w-full aspect-square object-cover rounded-md border border-slate-200 cursor-pointer" onclick="openLightbox('${evt.target.result}')" />
+            <button onclick="removePhoto(this)" class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full text-[10px] hidden group-hover:flex items-center justify-center hover:bg-red-600 transition">&times;</button>
+          `;
+          photoContainer.insertBefore(wrapper, photoContainer.lastElementChild);
+          showToast('Photo added');
         };
         reader.readAsDataURL(file);
       }
+      e.target.value = '';
     });
+
+    // Make existing photos clickable + deletable
+    document.querySelectorAll('#photo-container > img').forEach(img => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'relative group';
+      img.parentNode.insertBefore(wrapper, img);
+      wrapper.appendChild(img);
+      img.classList.add('cursor-pointer');
+      img.onclick = () => openLightbox(img.src);
+      wrapper.innerHTML += `<button onclick="removePhoto(this)" class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full text-[10px] hidden group-hover:flex items-center justify-center hover:bg-red-600 transition">&times;</button>`;
+    });
+
+    function removePhoto(btn) {
+      btn.closest('.relative.group').remove();
+      showToast('Photo removed', 'warn');
+    }
+
+    // ── Lightbox ──
+    function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.remove('hidden'); }
+    function closeLightbox() { document.getElementById('lightbox').classList.add('hidden'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── Notes Auto-save ──
+    let saveTimeout;
+    function autoSaveNotes() {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        localStorage.setItem('inspectionNotes_A1042', document.getElementById('inspectionNotes').value);
+        showToast('Notes auto-saved');
+      }, 1500);
+    }
+
+    // Restore saved notes
+    const savedNotes = localStorage.getItem('inspectionNotes_A1042');
+    if (savedNotes) document.getElementById('inspectionNotes').value = savedNotes;
+
+    // ── Confirm Return ──
+    let pendingAction = null;
+
+    function confirmReturn() {
+      const checked = [...checkboxes].filter(c => c.checked).length;
+      const condition = document.querySelector('[name="condition"]:checked')?.value;
+
+      if (checked === 0) { showToast('Please complete the condition checklist first', 'error'); return; }
+
+      pendingAction = 'confirm';
+      document.getElementById('modalIcon').innerHTML = '<i class="fa-solid fa-circle-check text-green-600 text-xl"></i>';
+      document.getElementById('modalIcon').className = 'w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4';
+      document.getElementById('modalTitle').textContent = 'Confirm Return?';
+      document.getElementById('modalText').textContent = `Condition: ${condition?.toUpperCase()}. ${checked}/${checkboxes.length} checklist items verified. This will release the equipment back to your inventory.`;
+      document.getElementById('modalBtn').className = 'flex-1 bg-[#0B2545] hover:bg-slate-800 text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2';
+      document.getElementById('modalBtnText').textContent = 'Confirm';
+      document.getElementById('actionModal').classList.remove('hidden');
+    }
+
+    function reportDamage() {
+      const condition = document.querySelector('[name="condition"]:checked')?.value;
+      const notes = document.getElementById('inspectionNotes').value.trim();
+
+      if (!notes) { showToast('Please add inspection notes describing the damage', 'error'); document.getElementById('inspectionNotes').focus(); return; }
+
+      pendingAction = 'damage';
+      document.getElementById('modalIcon').innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-600 text-xl"></i>';
+      document.getElementById('modalIcon').className = 'w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4';
+      document.getElementById('modalTitle').textContent = 'Report Damage?';
+      document.getElementById('modalText').textContent = 'This will flag the rental for review and hold the security deposit. The renter will be notified.';
+      document.getElementById('modalBtn').className = 'flex-1 bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2';
+      document.getElementById('modalBtnText').textContent = 'Report';
+      document.getElementById('actionModal').classList.remove('hidden');
+    }
+
+    function closeModal() { document.getElementById('actionModal').classList.add('hidden'); pendingAction = null; }
+
+    function executeAction() {
+      document.getElementById('modalBtn').disabled = true;
+      document.getElementById('modalBtnText').textContent = pendingAction === 'confirm' ? 'Processing...' : 'Reporting...';
+      document.getElementById('modalSpin').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('modalBtn').disabled = false;
+        document.getElementById('modalSpin').classList.add('hidden');
+        closeModal();
+
+        if (pendingAction === 'confirm') {
+          showToast('Return confirmed! Equipment is back in your inventory.');
+          // Update status badge
+          document.querySelector('.bg-blue-50')?.remove();
+          const h2 = document.querySelector('h2.text-sm.font-bold');
+          if (h2) {
+            const badge = document.createElement('span');
+            badge.className = 'bg-green-50 text-green-600 text-[10px] font-medium px-2 py-0.5 rounded-full border border-green-100 ml-2';
+            badge.textContent = 'Confirmed ✓';
+            h2.after(badge);
+          }
+          // Add to activity log
+          addLogEntry('Return confirmed by owner', 'Just now');
+        } else {
+          showToast('Damage reported. The renter has been notified.', 'warn');
+          addLogEntry('Damage reported by owner', 'Just now');
+        }
+
+        localStorage.removeItem('inspectionNotes_A1042');
+        pendingAction = null;
+      }, 1500);
+    }
+
+    // ── Add Activity Log Entry ──
+    function addLogEntry(text, time) {
+      const log = document.querySelector('.space-y-4.text-xs.relative.pl-4');
+      if (!log) return;
+      const entry = document.createElement('div');
+      entry.className = 'relative';
+      entry.innerHTML = `<span class="w-2 h-2 rounded-full bg-green-500 absolute -left-[21px] top-1"></span><p class="font-bold text-green-700">${text}</p><p class="text-[10px] text-slate-400">${time}</p>`;
+      log.insertBefore(entry, log.firstChild);
+    }
+
+    // ── Search ──
+    function searchPage() {
+      const q = document.getElementById('headerSearch').value.toLowerCase();
+      document.querySelectorAll('main .bg-white').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = !q || text.includes(q) ? '' : 'none';
+      });
+    }
+
+    // ── Footer Accordion ──
+    function toggleAccordion(id) {
+      const list = document.getElementById(id);
+      const icon = document.getElementById(id + '-icon');
+      if (!list) return;
+      const isHidden = list.classList.contains('hidden');
+      // Close all first on mobile
+      ['quick-links', 'company', 'support'].forEach(s => {
+        document.getElementById(s)?.classList.add('hidden');
+        document.getElementById(s + '-icon')?.classList.remove('rotate-180');
+      });
+      if (isHidden) {
+        list.classList.remove('hidden');
+        icon?.classList.add('rotate-180');
+      }
+    }
+
+    // Init checklist progress
+    updateChecklistProgress();
   </script>
 </body>
 </html>

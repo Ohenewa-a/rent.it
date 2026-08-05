@@ -50,11 +50,11 @@
       </div>
       <div class="flex items-center gap-3">
         <div class="relative">
-          <input type="text" placeholder="Search..." class="bg-gray-100 text-xs px-4 py-2 rounded-lg pl-9 focus:outline-none focus:ring-2 focus:ring-brand w-48" />
+          <input id="walletSearch" type="text" placeholder="Search transactions..." oninput="searchTransactions()" class="bg-gray-100 text-xs px-4 py-2 rounded-lg pl-9 focus:outline-none focus:ring-2 focus:ring-brand w-48" />
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[11px]"></i>
         </div>
         <button class="relative text-gray-400 hover:text-gray-600"><i class="fa-solid fa-bell"></i></button>
-        <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img src="images/Ellipse 391.png" alt="User" class="w-full h-full object-cover" onerror="this.style.display='none'"></div>
+        <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img src="images/logo(1).png" alt="User" class="w-full h-full object-cover" onerror="this.style.display='none'"></div>
       </div>
     </div>
 
@@ -89,7 +89,7 @@
           <div class="bg-brand rounded-lg p-5 mb-6">
             <div class="flex items-center justify-between mb-3">
               <p class="text-[10px] text-white/60 uppercase font-semibold tracking-wider">Available Balance</p>
-              <button class="bg-accent hover:bg-accentHover text-brand text-xs font-semibold px-4 py-1.5 rounded-lg transition">Withdraw</button>
+              <button onclick="openWithdraw()" class="bg-accent hover:bg-accentHover text-brand text-xs font-semibold px-4 py-1.5 rounded-lg transition">Withdraw</button>
             </div>
             <p class="text-3xl font-bold text-white mb-4">₦65,079<span class="text-lg text-white/60">.24</span></p>
             <div class="grid grid-cols-4 gap-3">
@@ -131,7 +131,7 @@
               </div>
               <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-center gap-3">
                 <div class="w-12 h-12 rounded-lg bg-gray-200 overflow-hidden shrink-0">
-                  <img src="images/what.png" alt="DJI" class="w-full h-full object-cover" onerror="this.parentElement.classList.add('bg-gray-200')">
+                  <img src="images/canon eos r50 4 1.png" alt="DJI" class="w-full h-full object-cover" onerror="this.parentElement.classList.add('bg-gray-200')">
                 </div>
                 <div>
                   <p class="text-xs font-semibold text-gray-800">DJI Mini 3 Drone</p>
@@ -147,9 +147,9 @@
             <div class="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
               <p class="text-xs font-bold text-brand uppercase tracking-wider">Transaction History</p>
               <div class="flex gap-1">
-                <button class="w-7 h-7 rounded bg-brand text-white text-[10px] flex items-center justify-center">All</button>
-                <button class="w-7 h-7 rounded text-gray-400 text-[10px] flex items-center justify-center hover:bg-gray-100">In</button>
-                <button class="w-7 h-7 rounded text-gray-400 text-[10px] flex items-center justify-center hover:bg-gray-100">Out</button>
+                <button onclick="filterTx('all')" id="txAll" class="w-7 h-7 rounded bg-brand text-white text-[10px] flex items-center justify-center">All</button>
+                <button onclick="filterTx('in')" id="txIn" class="w-7 h-7 rounded text-gray-400 text-[10px] flex items-center justify-center hover:bg-gray-100">In</button>
+                <button onclick="filterTx('out')" id="txOut" class="w-7 h-7 rounded text-gray-400 text-[10px] flex items-center justify-center hover:bg-gray-100">Out</button>
               </div>
             </div>
             <table class="w-full text-[11px]">
@@ -162,8 +162,8 @@
                   <th class="text-right px-5 py-2 font-semibold">Status</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr class="border-b border-gray-50">
+              <tbody id="txBody">
+                <tr class="border-b border-gray-50" data-type="in">
                   <td class="px-5 py-3">
                     <div class="flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
@@ -175,7 +175,7 @@
                   <td class="px-3 py-3 text-right font-semibold text-gray-700">₦20,000</td>
                   <td class="px-5 py-3 text-right"><span class="text-[9px] font-semibold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">Completed</span></td>
                 </tr>
-                <tr class="border-b border-gray-50">
+                <tr class="border-b border-gray-50" data-type="out">
                   <td class="px-5 py-3">
                     <div class="flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
@@ -187,7 +187,7 @@
                   <td class="px-3 py-3 text-right font-semibold text-gray-700">₦65,000</td>
                   <td class="px-5 py-3 text-right"><span class="text-[9px] font-semibold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">Completed</span></td>
                 </tr>
-                <tr class="border-b border-gray-50">
+                <tr class="border-b border-gray-50" data-type="in">
                   <td class="px-5 py-3">
                     <div class="flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
@@ -199,7 +199,7 @@
                   <td class="px-3 py-3 text-right font-semibold text-gray-700">₦5,000</td>
                   <td class="px-5 py-3 text-right"><span class="text-[9px] font-semibold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">Completed</span></td>
                 </tr>
-                <tr class="border-b border-gray-50">
+                <tr class="border-b border-gray-50" data-type="out">
                   <td class="px-5 py-3">
                     <div class="flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
@@ -211,7 +211,7 @@
                   <td class="px-3 py-3 text-right font-semibold text-gray-700">₦20,000</td>
                   <td class="px-5 py-3 text-right"><span class="text-[9px] font-semibold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">Processing</span></td>
                 </tr>
-                <tr class="border-b border-gray-50">
+                <tr class="border-b border-gray-50" data-type="out">
                   <td class="px-5 py-3">
                     <div class="flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
@@ -223,7 +223,7 @@
                   <td class="px-3 py-3 text-right font-semibold text-gray-700">₦5,000</td>
                   <td class="px-5 py-3 text-right"><span class="text-[9px] font-semibold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">Completed</span></td>
                 </tr>
-                <tr>
+                <tr data-type="in">
                   <td class="px-5 py-3">
                     <div class="flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
@@ -238,7 +238,7 @@
               </tbody>
             </table>
             <div class="px-5 py-3 border-t border-gray-100 text-center">
-              <a href="#" class="text-[11px] font-semibold text-brand hover:underline">View all transactions →</a>
+              <a href="#" onclick="viewAllTransactions();return false;" class="text-[11px] font-semibold text-brand hover:underline">View all transactions →</a>
             </div>
           </div>
 
@@ -251,8 +251,8 @@
           <div class="mb-4">
             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3">Quick Actions</p>
             <div class="space-y-2">
-              <button class="w-full bg-brand hover:bg-brandHover text-white text-xs font-semibold py-2.5 rounded-lg transition">Withdraw Funds</button>
-              <button class="w-full border border-brand text-brand text-xs font-semibold py-2.5 rounded-lg hover:bg-brand hover:text-white transition">Add Payout Account</button>
+              <button onclick="openWithdraw()" class="w-full bg-brand hover:bg-brandHover text-white text-xs font-semibold py-2.5 rounded-lg transition">Withdraw Funds</button>
+              <button onclick="openAddAccount()" class="w-full border border-brand text-brand text-xs font-semibold py-2.5 rounded-lg hover:bg-brand hover:text-white transition">Add Payout Account</button>
             </div>
           </div>
 
@@ -279,7 +279,7 @@
                 </div>
               </div>
             </div>
-            <a href="#" class="text-[11px] font-semibold text-brand hover:underline mt-3 block">+ Add Account</a>
+            <a href="#" onclick="openAddAccount();return false;" class="text-[11px] font-semibold text-brand hover:underline mt-3 block">+ Add Account</a>
           </div>
 
           <!-- Earnings Chart -->
@@ -351,6 +351,167 @@
 
     </div>
   </main>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-brand text-white text-xs font-semibold px-6 py-3 rounded-lg shadow-lg z-50 hidden" style="animation:fadeIn .3s ease-out">
+  </div>
+
+  <!-- Withdraw Modal -->
+  <div id="withdrawModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4" style="animation:fadeIn .3s ease-out">
+      <h3 class="text-base font-bold text-brand mb-1">Withdraw Funds</h3>
+      <p class="text-[11px] text-gray-400 mb-4">Available: <span class="font-bold text-brand">₦65,079.24</span></p>
+      <div class="mb-3">
+        <label class="text-[10px] font-semibold text-gray-400 uppercase">Amount (₦)</label>
+        <input type="number" id="withdrawAmt" placeholder="Enter amount" min="1000" max="65079" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm mt-1 focus:outline-none focus:ring-2 focus:ring-brand" />
+        <p id="withdrawErr" class="text-[11px] text-red-500 mt-1 hidden"></p>
+      </div>
+      <div class="mb-4">
+        <label class="text-[10px] font-semibold text-gray-400 uppercase">Payout Account</label>
+        <select id="withdrawAcct" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm mt-1 focus:outline-none focus:ring-2 focus:ring-brand">
+          <option value="mtn">MTN Mobile Money · ****4521</option>
+          <option value="gt">GT Bank · ****8910</option>
+        </select>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="closeWithdraw()" class="flex-1 border border-gray-300 text-gray-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-gray-50 transition">Cancel</button>
+        <button onclick="processWithdraw()" id="withdrawBtn" class="flex-1 bg-brand hover:bg-brandHover text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+          <span id="wdText">Withdraw</span><i id="wdSpin" class="fa-solid fa-spinner fa-spin hidden"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Account Modal -->
+  <div id="addAcctModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4" style="animation:fadeIn .3s ease-out">
+      <h3 class="text-base font-bold text-brand mb-4">Add Payout Account</h3>
+      <div class="mb-3">
+        <label class="text-[10px] font-semibold text-gray-400 uppercase">Account Type</label>
+        <select id="acctType" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm mt-1 focus:outline-none focus:ring-2 focus:ring-brand">
+          <option value="bank">Bank Account</option>
+          <option value="mobile">Mobile Money</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="text-[10px] font-semibold text-gray-400 uppercase">Bank / Provider Name</label>
+        <input type="text" id="acctBank" placeholder="e.g. Access Bank" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm mt-1 focus:outline-none focus:ring-2 focus:ring-brand" />
+        <p id="bankErr" class="text-[11px] text-red-500 mt-1 hidden"></p>
+      </div>
+      <div class="mb-4">
+        <label class="text-[10px] font-semibold text-gray-400 uppercase">Account Number</label>
+        <input type="text" id="acctNum" placeholder="0123456789" maxlength="10" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm mt-1 focus:outline-none focus:ring-2 focus:ring-brand" />
+        <p id="numErr" class="text-[11px] text-red-500 mt-1 hidden"></p>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="closeAddAcct()" class="flex-1 border border-gray-300 text-gray-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-gray-50 transition">Cancel</button>
+        <button onclick="saveAccount()" id="saveAcctBtn" class="flex-1 bg-brand hover:bg-brandHover text-white font-semibold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+          <span id="saText">Add Account</span><i id="saSpin" class="fa-solid fa-spinner fa-spin hidden"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}</style>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    // ── Toast ──
+    function showToast(msg) {
+      const t = $('toast'); t.textContent = msg; t.classList.remove('hidden');
+      setTimeout(() => t.classList.add('hidden'), 2500);
+    }
+
+    // ── Transaction Filter (All / In / Out) ──
+    function filterTx(type) {
+      // Update tab styles
+      ['txAll','txIn','txOut'].forEach(id => {
+        $(id).className = 'w-7 h-7 rounded text-gray-400 text-[10px] flex items-center justify-center hover:bg-gray-100';
+      });
+      $('tx' + type.charAt(0).toUpperCase() + type.slice(1)).className = 'w-7 h-7 rounded bg-brand text-white text-[10px] flex items-center justify-center';
+
+      // Filter rows
+      document.querySelectorAll('#txBody tr').forEach(row => {
+        if (type === 'all') { row.style.display = ''; }
+        else { row.style.display = row.dataset.type === type ? '' : 'none'; }
+      });
+    }
+
+    // ── Search Transactions ──
+    function searchTransactions() {
+      const q = $('walletSearch').value.toLowerCase();
+      document.querySelectorAll('#txBody tr').forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
+    // ── View All Transactions ──
+    function viewAllTransactions() {
+      showToast('Loading full transaction history...');
+    }
+
+    // ── Withdraw Modal ──
+    function openWithdraw() { $('withdrawModal').classList.remove('hidden'); $('withdrawAmt').value = ''; $('withdrawErr').classList.add('hidden'); }
+    function closeWithdraw() { $('withdrawModal').classList.add('hidden'); }
+
+    function processWithdraw() {
+      const amt = parseFloat($('withdrawAmt').value);
+      if (!amt || amt < 1000) { $('withdrawErr').textContent = 'Minimum withdrawal is ₦1,000'; $('withdrawErr').classList.remove('hidden'); return; }
+      if (amt > 65079) { $('withdrawErr').textContent = 'Amount exceeds available balance'; $('withdrawErr').classList.remove('hidden'); return; }
+      $('withdrawErr').classList.add('hidden');
+
+      $('withdrawBtn').disabled = true; $('withdrawBtn').classList.add('opacity-70');
+      $('wdText').textContent = 'Processing...'; $('wdSpin').classList.remove('hidden');
+
+      setTimeout(() => {
+        $('withdrawBtn').disabled = false; $('withdrawBtn').classList.remove('opacity-70');
+        $('wdText').textContent = 'Withdraw'; $('wdSpin').classList.add('hidden');
+        closeWithdraw();
+        showToast('₦' + amt.toLocaleString() + ' withdrawal initiated to ' + $('withdrawAcct').options[$('withdrawAcct').selectedIndex].text);
+      }, 1500);
+    }
+
+    // ── Add Account Modal ──
+    function openAddAccount() { $('addAcctModal').classList.remove('hidden'); $('acctBank').value = ''; $('acctNum').value = ''; ['bankErr','numErr'].forEach(id => $(id).classList.add('hidden')); }
+    function closeAddAcct() { $('addAcctModal').classList.add('hidden'); }
+
+    function saveAccount() {
+      let ok = true;
+      if (!$('acctBank').value.trim()) { $('bankErr').textContent = 'Required'; $('bankErr').classList.remove('hidden'); ok = false; } else $('bankErr').classList.add('hidden');
+      const num = $('acctNum').value.replace(/[^\d]/g, '');
+      if (num.length < 10) { $('numErr').textContent = 'Enter 10-digit account number'; $('numErr').classList.remove('hidden'); ok = false; } else $('numErr').classList.add('hidden');
+      if (!ok) return;
+
+      $('saveAcctBtn').disabled = true; $('saveAcctBtn').classList.add('opacity-70');
+      $('saText').textContent = 'Adding...'; $('saSpin').classList.remove('hidden');
+
+      setTimeout(() => {
+        $('saveAcctBtn').disabled = false; $('saveAcctBtn').classList.remove('opacity-70');
+        $('saText').textContent = 'Add Account'; $('saSpin').classList.add('hidden');
+        closeAddAcct();
+        showToast($('acctBank').value + ' account added successfully!');
+      }, 1200);
+    }
+
+    // ── Chart Bar Tooltips ──
+    document.querySelectorAll('.flex.items-end.gap-1\\.5 > div').forEach((bar, i) => {
+      const amounts = ['₦12,000', '₦18,500', '₦25,000', '₦15,200', '₦32,000', '₦45,000', '₦35,800'];
+      bar.title = amounts[i] || '';
+      bar.style.cursor = 'pointer';
+      bar.addEventListener('click', () => showToast('Week ' + (i + 1) + ': ' + (amounts[i] || 'N/A')));
+    });
+
+    // ── Close modals on Escape ──
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeWithdraw(); closeAddAcct(); }
+    });
+
+    // ── Close modals on backdrop click ──
+    $('withdrawModal').addEventListener('click', e => { if (e.target === $('withdrawModal')) closeWithdraw(); });
+    $('addAcctModal').addEventListener('click', e => { if (e.target === $('addAcctModal')) closeAddAcct(); });
+  </script>
 
 </body>
 </html>
